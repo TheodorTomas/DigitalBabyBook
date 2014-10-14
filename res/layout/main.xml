@@ -4,10 +4,16 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <TextView
-            android:layout_width="fill_parent"
+
+    <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World, MainActivity"
-            />
+            android:text="Boy"
+            android:id="@+id/btn_boy" android:layout_gravity="center_horizontal" android:textColor="#ff5257ee"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Girl"
+            android:id="@+id/btn_girl" android:layout_gravity="center_horizontal" android:textColor="#ffee7ce8"/>
 </LinearLayout>
 
