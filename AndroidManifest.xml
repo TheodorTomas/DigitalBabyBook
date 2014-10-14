@@ -7,13 +7,15 @@
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name=".Activities.MainActivity"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.Light.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CreateBaby"/>
-        <activity android:name=".Activities.BabyHomeActivity"/>
+        <activity android:name=".Activities.CreateBaby"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name=".Activities.BabyHomeActivity"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"/>
     </application>
 </manifest>
