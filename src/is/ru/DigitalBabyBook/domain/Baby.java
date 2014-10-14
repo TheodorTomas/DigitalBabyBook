@@ -5,16 +5,18 @@ package is.ru.DigitalBabyBook.domain;
  */
 public class Baby {
 
-    public int id;
-    public String name;
-    public String dateOfBirth;
-    public String birthLocation;
-    public String gender;
-    public double size;
-    public double weight;
-    public String hairColor;
+    private int id;
+    private String name;
+    private String dateOfBirth;
+    private String birthLocation;
+    private String gender;
+    private double size;
+    private double weight;
+    private String hairColor;
 
+    public Baby() {
 
+    }
 
     public int getId() {
         return id;
