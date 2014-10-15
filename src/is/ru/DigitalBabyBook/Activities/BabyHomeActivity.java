@@ -1,6 +1,7 @@
 package is.ru.DigitalBabyBook.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -65,6 +66,12 @@ public class BabyHomeActivity extends Activity {
 
         //TextView textView1 = (TextView) this.findViewById(R.id.home_babyAge);
         //textView1.setText(global.baby.getDateOfBirth());
+    }
+
+    public void goToEventForm(View view) {
+
+        startActivity(new Intent(getBaseContext(), AddEventFormActivity.class));
+
     }
 
     public void deleteBabies(View view) {
