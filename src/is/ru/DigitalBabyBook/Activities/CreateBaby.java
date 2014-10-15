@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.adapters.BabyAdapter;
 import is.ru.DigitalBabyBook.domain.Baby;
 
 import java.util.Calendar;
@@ -23,6 +24,7 @@ public class CreateBaby extends Activity {
 
     private Baby baby = new Baby();
     private Global global = Global.getInstance();
+    private BabyAdapter mBA = new BabyAdapter( this );
 
     private Button pickDate;
     private TextView dateDisplay;
@@ -75,23 +77,31 @@ public class CreateBaby extends Activity {
 
     public void addBaby(View view) {
         TextView babyName = (TextView) this.findViewById(R.id.babyName);
-        //TextView dateOfBirth = (TextView) this.findViewById(R.id.dateOfbirth);
-        //TextView babyWeight = (TextView) this.findViewById(R.id.babyWeight);
-        //TextView babySize = (TextView) this.findViewById(R.id.babySize);
-        //TextView babyHairColor = (TextView) this.findViewById(R.id.babyHairColor);
-        //TextView placeOfBirth = (TextView) this.findViewById(R.id.placeOfBirth);
+        TextView dateOfBirth = (TextView) this.findViewById(R.id.dateDisplay);
+        TextView babyWeight = (TextView) this.findViewById(R.id.babyWeight);
+        TextView babySize = (TextView) this.findViewById(R.id.babySize);
+        TextView babyHairColor = (TextView) this.findViewById(R.id.babyHairColor);
+        TextView placeOfBirth = (TextView) this.findViewById(R.id.placeOfBirth);
 
-        //Double weight = Double.parseDouble(babyWeight.getText().toString());
-        //Double size = Double.parseDouble(babySize.getText().toString());
+        Double weight = Double.parseDouble(babyWeight.getText().toString());
+        Double size = Double.parseDouble(babySize.getText().toString());
         baby.setName(babyName.getText().toString());
-        //baby.setDateOfBirth((String) dateOfBirth.getText());
-        //baby.setWeight(weight);
-        //baby.setSize(size);
-        //baby.setHairColor((String) babyHairColor.getText());
-        //baby.setBirthLocation((String) placeOfBirth.getText());
+        baby.setDateOfBirth(dateOfBirth.getText().toString());
+        baby.setWeight(weight);
+        baby.setSize(size);
+        baby.setHairColor(babyHairColor.getText().toString());
+        baby.setBirthLocation(placeOfBirth.getText().toString());
 
         global.selectedBaby = baby; //set the baby to global (later save to db)
-        startActivity(new Intent(getBaseContext(), BabyHomeActivity.class));
+
+        //(String name, String birthLocation, String gender, double size, double weight, String hairColor )
+        long l = mBA.insertBaby(babyName.getText().toString(),baby.getDateOfBirth(), baby.getBirthLocation(), baby.getGender(), baby.getSize(), baby.getWeight(), baby.getHairColor());
+        mBA.close();
+
+        Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
+        i.putExtra("babyId", l);
+
+        startActivity(i);
     }
 
     @Override
