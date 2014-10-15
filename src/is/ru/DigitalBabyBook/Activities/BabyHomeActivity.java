@@ -1,7 +1,6 @@
 package is.ru.DigitalBabyBook.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -55,6 +54,7 @@ public class BabyHomeActivity extends Activity {
                     } while(mCursor.moveToNext());
 
                 }
+                mBA.close();
             }
 
             TextView textView = (TextView) this.findViewById(R.id.home_babyName);
