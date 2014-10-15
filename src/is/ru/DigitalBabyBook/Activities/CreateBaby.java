@@ -1,14 +1,20 @@
 package is.ru.DigitalBabyBook.Activities;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.domain.Baby;
+
+import java.util.Calendar;
 
 /**
  * Created by arnif on 10/14/14.
@@ -18,11 +24,36 @@ public class CreateBaby extends Activity {
     private Baby baby = new Baby();
     private Global global = Global.getInstance();
 
+    private Button pickDate;
+    private TextView dateDisplay;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+
+    static final int DATE_DIALOG_ID = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
         setContentView(R.layout.create_baby);
+
+
+        dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
+        pickDate = (Button) this.findViewById(R.id.datePicker);
+
+
+        pickDate.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        updateDisplay();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -62,4 +93,34 @@ public class CreateBaby extends Activity {
         global.selectedBaby = baby; //set the baby to global (later save to db)
         startActivity(new Intent(getBaseContext(), BabyHomeActivity.class));
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this,
+                        mDateSetListener,
+                        mYear, mMonth, mDay);
+        }
+        return null;
+    }
+
+    private void updateDisplay() {
+        dateDisplay.setText(
+                new StringBuilder()
+                        // Month is 0 based so add 1
+                        .append(mMonth + 1).append("-")
+                        .append(mDay).append("-")
+                        .append(mYear).append(" "));
+    }
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year,
+                                      int monthOfYear, int dayOfMonth) {
+                    mYear = year;
+                    mMonth = monthOfYear;
+                    mDay = dayOfMonth;
+                    updateDisplay();
+                }
+    };
 }
