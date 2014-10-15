@@ -59,7 +59,7 @@ public class CreateBaby extends Activity {
         //baby.setHairColor((String) babyHairColor.getText());
         //baby.setBirthLocation((String) placeOfBirth.getText());
 
-        global.baby = baby; //set the baby to global (later save to db)
+        global.selectedBaby = baby; //set the baby to global (later save to db)
         startActivity(new Intent(getBaseContext(), BabyHomeActivity.class));
     }
 }

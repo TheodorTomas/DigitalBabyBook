@@ -19,18 +19,17 @@
             android:text="Name"
             android:ems="10"
             android:id="@+id/babyName"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/dateOfbirth"/>
+    <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:id="@+id/datePicker"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/babyWeight"/>
+
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

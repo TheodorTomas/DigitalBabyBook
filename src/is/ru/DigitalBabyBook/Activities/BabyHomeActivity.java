@@ -22,7 +22,7 @@ public class BabyHomeActivity extends Activity {
 
 
         TextView textView = (TextView) this.findViewById(R.id.home_babyName);
-        textView.setText(global.baby.getName());
+        textView.setText(global.selectedBaby.getName());
 
         //TextView textView1 = (TextView) this.findViewById(R.id.home_babyAge);
         //textView1.setText(global.baby.getDateOfBirth());

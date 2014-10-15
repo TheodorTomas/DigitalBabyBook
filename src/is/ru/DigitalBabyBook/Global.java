@@ -7,7 +7,7 @@ import is.ru.DigitalBabyBook.domain.Baby;
  */
 public class Global {
 
-    public Baby baby;
+    public Baby selectedBaby;
 
     private static Global mInstance = new Global();
 
