@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.view.Window;
-import android.widget.SimpleCursorAdapter;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
@@ -22,7 +21,6 @@ public class BabyHomeActivity extends FragmentActivity {
 
     private Global global = Global.getInstance();
     private BabyAdapter mBA = new BabyAdapter( this );
-    private SimpleCursorAdapter mCA;
     private Cursor mCursor;
 
 
@@ -58,34 +56,12 @@ public class BabyHomeActivity extends FragmentActivity {
 
                 }
                 mBA.close();
-
                 global.selectedBaby = baby;
             }
 
         }
 
-        //Create tabs
-        /*
-        TabHost tabs = (TabHost) findViewById(R.id.tabHost);
-        tabs.setup();
-        tabs.setCurrentTab(0);
-
-        TabHost.TabSpec homeTab = tabs.newTabSpec("home");
-        homeTab.setContent(R.id.tab1);
-        homeTab.setIndicator("Home");
-        tabs.addTab(homeTab);
-
-        TabHost.TabSpec eventTab = tabs.newTabSpec("event");
-        eventTab.setContent(R.id.tab2);
-        eventTab.setIndicator("Events");
-        tabs.addTab(eventTab);
-
-        TabHost.TabSpec checklistTab = tabs.newTabSpec("checklist");
-        checklistTab.setContent(R.id.tab3);
-        checklistTab.setIndicator("Checklist");
-        tabs.addTab(checklistTab);
-        */
-
+        //thx http://stackoverflow.com/questions/17227855/tabhost-with-fragments-and-fragmentactivity
         mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
@@ -96,18 +72,14 @@ public class BabyHomeActivity extends FragmentActivity {
         mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
                 ChecklistHomeFragment.class, null);
 
-
-        //TextView textView1 = (TextView) this.findViewById(R.id.home_babyAge);
-        //textView1.setText(global.baby.getDateOfBirth());
     }
 
     public void goToEventForm(View view) {
-
         startActivity(new Intent(getBaseContext(), AddEventFormActivity.class));
-
     }
 
     public void deleteBabies(View view) {
+        //TODO this should be in settings
         final BabyHomeActivity babyHomeActivity = this;
         //thx http://stackoverflow.com/questions/2257963/how-to-show-a-dialog-to-confirm-that-the-user-wishes-to-exit-an-android-activity
         new AlertDialog.Builder(this)
