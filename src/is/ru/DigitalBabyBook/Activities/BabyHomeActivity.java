@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TabHost;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
@@ -60,6 +61,26 @@ public class BabyHomeActivity extends Activity {
             TextView textView = (TextView) this.findViewById(R.id.home_babyName);
             textView.setText(baby.getName());
         }
+
+        //Create tabs
+        TabHost tabs = (TabHost) findViewById(R.id.tabHost);
+        tabs.setup();
+        tabs.setCurrentTab(0);
+
+        TabHost.TabSpec homeTab = tabs.newTabSpec("home");
+        homeTab.setContent(R.id.tab1);
+        homeTab.setIndicator("Home");
+        tabs.addTab(homeTab);
+
+        TabHost.TabSpec eventTab = tabs.newTabSpec("event");
+        eventTab.setContent(R.id.tab2);
+        eventTab.setIndicator("Events");
+        tabs.addTab(eventTab);
+
+        TabHost.TabSpec checklistTab = tabs.newTabSpec("checklist");
+        checklistTab.setContent(R.id.tab3);
+        checklistTab.setIndicator("Checklist");
+        tabs.addTab(checklistTab);
 
 
 

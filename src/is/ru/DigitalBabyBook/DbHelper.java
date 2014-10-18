@@ -21,9 +21,9 @@ public class DbHelper extends SQLiteOpenHelper {
             " dateOfBirth DATE NOT NULL," +
             " birthLocation TEXT, " +
             " gender TEXT NOT NULL, " +
-            " size DOUBLE, " +
-            " weight DOUBLE, " +
-            " hairColor TEXT " +
+            " size DOUBLE NULL, " +
+            " weight DOUBLE NULL, " +
+            " hairColor TEXT NULL " +
             ");";
 
     private static final String sqlDropTableBabies =
