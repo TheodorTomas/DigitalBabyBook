@@ -1,16 +1,15 @@
 package is.ru.DigitalBabyBook.Activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.view.Window;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TabHost;
-import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
@@ -19,18 +18,21 @@ import is.ru.DigitalBabyBook.domain.Baby;
 /**
  * Created by arnif on 10/14/14.
  */
-public class BabyHomeActivity extends Activity {
+public class BabyHomeActivity extends FragmentActivity {
 
     private Global global = Global.getInstance();
     private BabyAdapter mBA = new BabyAdapter( this );
     private SimpleCursorAdapter mCA;
     private Cursor mCursor;
 
+
+    private FragmentTabHost mTabHost;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
-        setContentView(R.layout.baby_home);
+        setContentView(R.layout.baby_tabs);
 
 
         Baby baby = new Baby();
@@ -56,13 +58,14 @@ public class BabyHomeActivity extends Activity {
 
                 }
                 mBA.close();
+
+                global.selectedBaby = baby;
             }
 
-            TextView textView = (TextView) this.findViewById(R.id.home_babyName);
-            textView.setText(baby.getName());
         }
 
         //Create tabs
+        /*
         TabHost tabs = (TabHost) findViewById(R.id.tabHost);
         tabs.setup();
         tabs.setCurrentTab(0);
@@ -81,8 +84,17 @@ public class BabyHomeActivity extends Activity {
         checklistTab.setContent(R.id.tab3);
         checklistTab.setIndicator("Checklist");
         tabs.addTab(checklistTab);
+        */
 
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Home"),
+                BabyHomeFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Event"),
+                EventHomeFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
+                ChecklistHomeFragment.class, null);
 
 
         //TextView textView1 = (TextView) this.findViewById(R.id.home_babyAge);
