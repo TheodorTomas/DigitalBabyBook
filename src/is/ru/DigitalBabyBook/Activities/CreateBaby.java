@@ -85,7 +85,15 @@ public class CreateBaby extends Activity {
             String gender = extras.getString("gender");
 
             TextView textView = (TextView) this.findViewById(R.id.babyGender);
-            textView.setText(gender);
+            textView.setText(gender.toUpperCase());
+            if (textView.getText().equals("BOY")){
+                textView.setBackgroundColor(Color.rgb(51, 181, 229));
+                textView.setTextColor(Color.WHITE);
+            }
+            else{
+                textView.setBackgroundColor(Color.rgb(246, 96, 171));
+                textView.setTextColor(Color.WHITE);
+            }
 
             baby.setGender(gender);
 

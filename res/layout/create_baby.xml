@@ -11,12 +11,17 @@
                   android:isScrollContainer="true">
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Gender"
                 android:id="@+id/babyGender"
-                android:layout_gravity="center_horizontal"/>
+                android:textStyle="bold"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,17 +64,23 @@
                 android:text="Weight"/>
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
                 <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:ems="10"
+                        android:layout_weight="1.00"
                         android:id="@+id/babyWeight"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="gr"/>
+                        android:text="gr"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        android:background="#D3D3D3"
+                        android:textColor="#fffffff8"/>
         </LinearLayout>
         <TextView
                 android:layout_width="wrap_content"
@@ -77,19 +88,24 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Size"/>
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
                 <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:ems="10"
+                        android:layout_weight="1.00"
                         android:id="@+id/babySize"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="cm"/>
+                        android:text="cm"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        android:background="#D3D3D3"
+                        android:textColor="#fffffff8"/>
         </LinearLayout>
         <TextView
                 android:layout_width="wrap_content"
@@ -115,11 +131,11 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/placeOfBirth"
                         android:layout_weight="1.00"/>
-                        <!--android:text="Get Location"-->
-                        android:id="@+id/getCurrentLocation" android:layout_gravity="right"/>
                 <RadioButton
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/getCurrentLocation"
+                        android:layout_gravity="right"/>
         </LinearLayout>
         <Button
                 android:layout_width="wrap_content"
