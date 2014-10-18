@@ -5,17 +5,31 @@
               android:layout_height="fill_parent"
         >
 
+
+
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Boy"
+            android:id="@+id/btn_boy"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:background="@drawable/buttonshape"
+            android:layout_gravity="center_horizontal"
             android:onClick="createBaby"
-            android:id="@+id/btn_boy" android:layout_gravity="center_horizontal" android:textColor="#ff5257ee"/>
+            />
+
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Girl"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:background="@drawable/buttonshapepink"
             android:onClick="createBaby"
-            android:id="@+id/btn_girl" android:layout_gravity="center_horizontal" android:textColor="#ffee7ce8"/>
+            android:id="@+id/btn_girl"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            />
 </LinearLayout>
 
