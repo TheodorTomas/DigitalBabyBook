@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
@@ -27,6 +31,7 @@ public class CreateBaby extends Activity {
     private BabyAdapter mBA = new BabyAdapter( this );
 
     private Button pickDate;
+    private Button addBaby;
     private TextView dateDisplay;
     private int mYear;
     private int mMonth;
@@ -57,6 +62,24 @@ public class CreateBaby extends Activity {
         mDay = c.get(Calendar.DAY_OF_MONTH);
         updateDisplay();
 
+        addBaby = (Button) this.findViewById(R.id.addBaby);
+        addBaby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText babyName = (EditText) findViewById(R.id.babyName);
+                if (babyName.getText().toString().equals("")){
+                    String error = "Name is required!";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
+                    ssbuilder.setSpan(fgcspan, 0, error.length(), 0);
+                    babyName.setError(ssbuilder);
+                }
+                else{
+                    addBaby(v);
+                }
+            }
+        });
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String gender = extras.getString("gender");
@@ -76,6 +99,9 @@ public class CreateBaby extends Activity {
     }
 
     public void addBaby(View view) {
+
+        Double weight, size;
+
         TextView babyName = (TextView) this.findViewById(R.id.babyName);
         TextView dateOfBirth = (TextView) this.findViewById(R.id.dateDisplay);
         TextView babyWeight = (TextView) this.findViewById(R.id.babyWeight);
@@ -83,8 +109,18 @@ public class CreateBaby extends Activity {
         TextView babyHairColor = (TextView) this.findViewById(R.id.babyHairColor);
         TextView placeOfBirth = (TextView) this.findViewById(R.id.placeOfBirth);
 
-        Double weight = Double.parseDouble(babyWeight.getText().toString());
-        Double size = Double.parseDouble(babySize.getText().toString());
+        if (babyWeight.getText().toString().equals("")){
+            weight = 0.0;
+        }
+        else {
+            weight = Double.parseDouble(babyWeight.getText().toString());
+        }
+        if (babySize.getText().toString().equals("")) {
+            size = 0.0;
+        }
+        else{
+            size = Double.parseDouble(babySize.getText().toString());
+        }
         baby.setName(babyName.getText().toString());
         baby.setDateOfBirth(dateOfBirth.getText().toString());
         baby.setWeight(weight);
