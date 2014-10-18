@@ -2,10 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
+              android:layout_height="fill_parent">
 
-
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/frontphoto"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/bb_cover"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"/>
 
     <Button
             android:text="Boy"
@@ -16,8 +22,7 @@
             android:layout_height="60dp"
             android:background="@drawable/buttonshape"
             android:layout_gravity="center_horizontal"
-            android:onClick="createBaby"
-            />
+            android:onClick="createBaby"/>
 
     <Button
             android:text="Girl"
@@ -29,7 +34,6 @@
             android:onClick="createBaby"
             android:id="@+id/btn_girl"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            />
+            android:layout_marginTop="30dp"/>
 </LinearLayout>
 
