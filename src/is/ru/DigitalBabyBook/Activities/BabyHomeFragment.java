@@ -1,10 +1,12 @@
 package is.ru.DigitalBabyBook.Activities;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
@@ -33,6 +35,9 @@ public class BabyHomeFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        ImageView profileImage = (ImageView) V.findViewById(R.id.home_babyProfilePicture);
+        profileImage.setImageBitmap(BitmapFactory.decodeFile(global.selectedBaby.getProfilePicture()));
 
         TextView babyAge = (TextView) V.findViewById(R.id.home_babyAge);
         babyAge.setText(age + " old");

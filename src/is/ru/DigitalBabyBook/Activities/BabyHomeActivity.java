@@ -69,7 +69,7 @@ public class BabyHomeActivity extends FragmentActivity {
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Home"),
                 BabyHomeFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Event"),
-                EventHomeFragment.class, null);
+                EventListFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
                 ChecklistHomeFragment.class, null);
 
@@ -79,11 +79,6 @@ public class BabyHomeActivity extends FragmentActivity {
         startActivity(new Intent(getBaseContext(), AddEventFormActivity.class));
     }
 
-    public void showEventList(View view) {
-        System.out.println("show EventListFragment");
-        mTabHost.addTab(mTabHost.newTabSpec("tab4").setIndicator("Event List"),
-                EventListFragment.class, null);
-    }
 
     public void deleteBabies(View view) {
         //TODO this should be in settings

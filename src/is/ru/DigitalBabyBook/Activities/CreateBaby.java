@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
@@ -36,6 +39,11 @@ public class CreateBaby extends Activity {
 
     static final int DATE_DIALOG_ID = 0;
 
+    private static int LOAD_IMAGE_RESULTS = 1;
+
+    // GUI components
+    private ImageView image;// ImageView
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +72,13 @@ public class CreateBaby extends Activity {
             @Override
             public void onClick(View v) {
                 EditText babyName = (EditText) findViewById(R.id.babyName);
-                if (babyName.getText().toString().equals("")){
+                if (babyName.getText().toString().equals("")) {
                     String error = "Name is required!";
                     ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
                     SpannableStringBuilder ssbuilder = new SpannableStringBuilder(error);
                     ssbuilder.setSpan(fgcspan, 0, error.length(), 0);
                     babyName.setError(ssbuilder);
-                }
-                else{
+                } else {
                     addBaby(v);
                 }
             }
@@ -149,6 +156,39 @@ public class CreateBaby extends Activity {
         i.putExtra("babyId", l);
 
         startActivity(i);
+    }
+
+    public void addPhoto(View view) {
+        // Create the Intent for Image Gallery.
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        // Start new activity with the LOAD_IMAGE_RESULTS to handle back the results when image is picked from the Image Gallery.
+        startActivityForResult(i, LOAD_IMAGE_RESULTS);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Here we need to check if the activity that was triggers was the Image Gallery.
+        // If it is the requestCode will match the LOAD_IMAGE_RESULTS value.
+        // If the resultCode is RESULT_OK and there is some data we know that an image was picked.
+        if (requestCode == LOAD_IMAGE_RESULTS && resultCode == RESULT_OK && data != null) {
+            // Let's read picked image data - its URI
+            Uri pickedImage = data.getData();
+            // Let's read picked image path using content resolver
+            String[] filePath = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+
+            baby.setProfilePicture(imagePath);
+            // Now we need to set the GUI ImageView data with data read from the picked file.
+            //image.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+
+            // At the end remember to close the cursor or you will end with the RuntimeException!
+            cursor.close();
+        }
     }
 
     @Override
