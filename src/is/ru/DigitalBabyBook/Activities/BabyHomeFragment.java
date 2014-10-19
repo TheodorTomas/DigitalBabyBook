@@ -1,6 +1,7 @@
 package is.ru.DigitalBabyBook.Activities;
 
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -36,8 +37,16 @@ public class BabyHomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        ImageView profileImage = (ImageView) V.findViewById(R.id.home_babyProfilePicture);
-        profileImage.setImageBitmap(BitmapFactory.decodeFile(global.selectedBaby.getProfilePicture()));
+
+        if (global.selectedBaby.getProfilePicture() != null) {
+            ImageView profileImage = (ImageView) V.findViewById(R.id.home_babyProfilePicture);
+            Bitmap d = new BitmapDrawable(V.getResources(), global.selectedBaby.getProfilePicture()).getBitmap();
+
+            int nh = (int) (d.getHeight() * (512.0 / d.getWidth()));
+            Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+
+            profileImage.setImageBitmap(scaled);
+        }
 
         TextView babyAge = (TextView) V.findViewById(R.id.home_babyAge);
         babyAge.setText(age + " old");
