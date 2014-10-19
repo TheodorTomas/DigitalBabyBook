@@ -42,19 +42,24 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:id="@+id/dateDisplay"
                         android:text=""
+                        android:layout_weight="1.00"
                         android:layout_gravity="center_horizontal"/>
-                <Button
+                <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Set Date"
-                        android:id="@+id/datePicker"/>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_action_go_to_today"
+                        android:id="@+id/datePicker"
+                        android:clickable="true"
+                        android:padding="18dp"
+                        android:layout_gravity="right"/>
         </LinearLayout>
 
         <TextView
@@ -142,14 +147,17 @@
                 android:layout_height="wrap_content"
                 android:text="Add photo"
                 android:id="@+id/addPhoto"
+                android:textColor="#ffffffff"
                 android:onClick="addPhoto"
-                android:layout_gravity="center_horizontal"/>/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"/>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add baby"
                 android:id="@+id/addBaby"
                 android:onClick="addBaby"
+                android:textColor="#ffffffff"
                 android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </ScrollView>

@@ -10,10 +10,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
@@ -30,7 +27,7 @@ public class CreateBaby extends Activity {
     private Global global = Global.getInstance();
     private BabyAdapter mBA = new BabyAdapter( this );
 
-    private Button pickDate;
+    private ImageView pickDate;
     private Button addBaby;
     private TextView dateDisplay;
     private int mYear;
@@ -47,7 +44,7 @@ public class CreateBaby extends Activity {
 
 
         dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
-        pickDate = (Button) this.findViewById(R.id.datePicker);
+        pickDate = (ImageView) this.findViewById(R.id.datePicker);
 
 
         pickDate.setOnClickListener(new View.OnClickListener(){
@@ -85,14 +82,20 @@ public class CreateBaby extends Activity {
             String gender = extras.getString("gender");
 
             TextView textView = (TextView) this.findViewById(R.id.babyGender);
+            Button addPhotoBtn = (Button) this.findViewById(R.id.addPhoto);
+            Button addBabyBtn = (Button) this.findViewById(R.id.addBaby);
             textView.setText(gender.toUpperCase());
             if (textView.getText().equals("BOY")){
                 textView.setBackgroundColor(Color.rgb(51, 181, 229));
                 textView.setTextColor(Color.WHITE);
+                addPhotoBtn.setBackground(getResources().getDrawable(R.drawable.boybtn));
+                addBabyBtn.setBackground(getResources().getDrawable(R.drawable.boybtn));
             }
             else{
                 textView.setBackgroundColor(Color.rgb(246, 96, 171));
                 textView.setTextColor(Color.WHITE);
+                addPhotoBtn.setBackground(getResources().getDrawable(R.drawable.girlbtn));
+                addBabyBtn.setBackground(getResources().getDrawable(R.drawable.girlbtn));
             }
 
             baby.setGender(gender);
