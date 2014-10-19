@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
@@ -72,8 +73,12 @@ public class BabyHomeActivity extends FragmentActivity {
                 EventListFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
                 ChecklistHomeFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab4").setIndicator("", getResources().getDrawable(R.drawable.ic_action_settings)),
+                SettingsHomeFragment.class, null);
 
     }
+
+    //.setIndicator(tabView).setContent(R.id.edit_species_tab);
 
     public void goToEventForm(View view) {
         startActivity(new Intent(getBaseContext(), AddEventFormActivity.class));
