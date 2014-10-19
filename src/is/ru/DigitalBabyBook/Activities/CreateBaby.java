@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -89,19 +91,16 @@ public class CreateBaby extends Activity {
             String gender = extras.getString("gender");
 
             TextView textView = (TextView) this.findViewById(R.id.babyGender);
-            Button addPhotoBtn = (Button) this.findViewById(R.id.addPhoto);
             Button addBabyBtn = (Button) this.findViewById(R.id.addBaby);
             textView.setText(gender.toUpperCase());
             if (textView.getText().equals("BOY")){
                 textView.setBackgroundColor(Color.rgb(51, 181, 229));
                 textView.setTextColor(Color.WHITE);
-                addPhotoBtn.setBackground(getResources().getDrawable(R.drawable.boybtn));
                 addBabyBtn.setBackground(getResources().getDrawable(R.drawable.boybtn));
             }
             else{
                 textView.setBackgroundColor(Color.rgb(246, 96, 171));
                 textView.setTextColor(Color.WHITE);
-                addPhotoBtn.setBackground(getResources().getDrawable(R.drawable.girlbtn));
                 addBabyBtn.setBackground(getResources().getDrawable(R.drawable.girlbtn));
             }
 
@@ -182,12 +181,22 @@ public class CreateBaby extends Activity {
             cursor.moveToFirst();
             String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
 
+
             baby.setProfilePicture(imagePath);
+
             // Now we need to set the GUI ImageView data with data read from the picked file.
             //image.setImageBitmap(BitmapFactory.decodeFile(imagePath));
 
             // At the end remember to close the cursor or you will end with the RuntimeException!
             cursor.close();
+
+            ImageView imageView = (ImageView) findViewById(R.id.create_baby_photo);
+            Bitmap d = new BitmapDrawable(getResources(),baby.getProfilePicture()).getBitmap();
+
+            int nh = (int) (d.getHeight() * (256.0 / d.getWidth()));
+            Bitmap scaled = Bitmap.createScaledBitmap(d, 256, nh, true);
+
+            imageView.setImageBitmap(scaled);
         }
     }
 
