@@ -19,5 +19,6 @@
         <activity android:name=".Activities.CreateBaby"/>
         <activity android:name=".Activities.BabyHomeActivity"/>
         <activity android:name=".Activities.AddEventFormActivity"/>
+        <activity android:name=".Activities.CreateHoliday"/>
     </application>
 </manifest>

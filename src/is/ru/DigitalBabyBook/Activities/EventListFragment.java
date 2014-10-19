@@ -71,7 +71,7 @@ public class EventListFragment extends Fragment {
                             listDataHeader.get(groupPosition)).get(
                             childPosition).toString());
 
-//                    startActivity(i);
+                    startActivity(i);
                 }
                 return false;
             }
