@@ -9,12 +9,12 @@ import java.util.Date;
 public class Event {
 
     public String eventDescription;
-    public /*Date*/String date;
+    public Date date;
     public String location;
-    public /*ArrayList<Byte>*/String photos;
+    public ArrayList<Byte> photos;
     public Baby baby;
 
-    public Event(String eventDescription, /*Date*/String date, String location, /*ArrayList<Byte>*/ String photos, Baby baby) {
+    public Event(String eventDescription, Date date, String location, ArrayList<Byte> photos, Baby baby) {
         this.eventDescription = eventDescription;
         this.date = date;
         this.location = location;
@@ -30,11 +30,11 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public /*Date */String getDate() {
+    public Date  getDate() {
         return date;
     }
 
-    public void setDate(/*Date*/String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -46,11 +46,11 @@ public class Event {
         this.location = location;
     }
 
-    public /*ArrayList<Byte>*/String getPhotos() {
+    public ArrayList<Byte> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(/*ArrayList<Byte>*/String photos) {
+    public void setPhotos(ArrayList<Byte> photos) {
         this.photos = photos;
     }
 

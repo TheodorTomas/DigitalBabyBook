@@ -68,14 +68,14 @@ public class CreateHoliday extends Activity {
         TextView gifts = (TextView) this.findViewById(R.id.gifts);
 //        TextView baby = (TextView) this.findViewById(R.id.baby); ???
 
-        event = new BirthdayEvent(
-                eventDescription.toString(),
-                dateOfHoliday.toString(),
-                location.toString(),
-                photos.toString(),
-                gifts.toString(),
-                global.selectedBaby
-        );
+//        event = new BirthdayEvent(
+//                eventDescription.toString(),
+//                dateOfHoliday.toString(),
+//                location.toString(),
+//                photos.toString(),
+//                gifts.toString(),
+//                global.selectedBaby
+//        );
     }
     @Override
     protected Dialog onCreateDialog(int id) {
