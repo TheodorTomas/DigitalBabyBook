@@ -33,22 +33,23 @@ public class Global {
         Period periodWeek = new Period(birthdate, now, PeriodType.yearWeekDay());
         Period periodMonth = new Period(birthdate, now, PeriodType.yearMonthDay());
 
-        String day = isPlural(periodWeek.getDays()) ? " day" : " days";
+        String day = isPlural(periodMonth.getDays()) ? " day" : " days";
         String month = isPlural(periodMonth.getMonths()) ? " month" : " months";
         String week = isPlural(periodWeek.getWeeks()) ? " week" : " weeks";
         String year = isPlural(periodMonth.getYears()) ? " year" : " years";
 
         if (periodMonth.getMonths() < 3) {
             if (periodMonth.getMonths() == 0) {
-                return periodWeek.getDays() + day;
+                return periodMonth.getDays() + day;
             }
+            day = isPlural(periodWeek.getDays()) ? " day" : " days";
             return periodWeek.getWeeks() + week + " and " + periodWeek.getDays() + day;
         }
 
         if (periodMonth.getYears() > 1) {
             return periodMonth.getYears() +  year + " and " + periodMonth.getMonths() + month;
         }
-
+        week = isPlural(periodWeek.getWeeks() % periodMonth.getMonths()) ? " week" : " weeks";
         return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week;
     }
 

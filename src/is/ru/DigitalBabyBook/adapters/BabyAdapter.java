@@ -35,9 +35,9 @@ public class BabyAdapter {
         db.close();
     }
 
-    public long insertBaby(String name, String dateOfBirth, String birthLocation, String gender, double size, double weight, String hairColor ) {
+    public long insertBaby(String name, String dateOfBirth, String birthLocation, String gender, double size, double weight, String hairColor, String profilePicture ) {
 
-        String[] cols = DbHelper.TableBabyCols; //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7"
+        String[] cols = DbHelper.TableBabyCols; //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7" , "profilePicture 8"
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(cols[1], name);
@@ -47,6 +47,7 @@ public class BabyAdapter {
         contentValues.put(cols[5], size);
         contentValues.put(cols[6], weight);
         contentValues.put(cols[7], hairColor);
+        contentValues.put(cols[8], profilePicture);
 
         openToWrite();
         long value = db.insert(DbHelper.BabyTable, null, contentValues);

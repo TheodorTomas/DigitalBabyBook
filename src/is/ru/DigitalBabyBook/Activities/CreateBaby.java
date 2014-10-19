@@ -139,7 +139,7 @@ public class CreateBaby extends Activity {
         global.selectedBaby = baby; //set the baby to global (later save to db)
 
         //(String name, String birthLocation, String gender, double size, double weight, String hairColor )
-        long l = mBA.insertBaby(babyName.getText().toString(),baby.getDateOfBirth(), baby.getBirthLocation(), baby.getGender(), baby.getSize(), baby.getWeight(), baby.getHairColor());
+        long l = mBA.insertBaby(babyName.getText().toString(),baby.getDateOfBirth(), baby.getBirthLocation(), baby.getGender(), baby.getSize(), baby.getWeight(), baby.getHairColor(), baby.getProfilePicture());
         mBA.close();
 
         Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);

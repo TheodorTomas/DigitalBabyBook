@@ -11,6 +11,6 @@
             android:layout_height="100dp"
             android:scaleType="fitXY"
             android:clickable="true"
-            android:onClick=""
+            android:onClick="fioo"
             android:src="@drawable/ic_action_new_picture" />
 </LinearLayout>

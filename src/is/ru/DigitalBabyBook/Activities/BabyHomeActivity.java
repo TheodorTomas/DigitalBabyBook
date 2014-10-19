@@ -43,7 +43,7 @@ public class BabyHomeActivity extends FragmentActivity {
 
                 if (mCursor.moveToFirst()) {
                     do {
-                        //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7"
+                        //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7", "profilePicture 8"
                         baby.setName(mCursor.getString(1));
                         baby.setDateOfBirth(mCursor.getString(2));
                         baby.setBirthLocation(mCursor.getString(3));
@@ -51,6 +51,7 @@ public class BabyHomeActivity extends FragmentActivity {
                         baby.setSize(mCursor.getDouble(5));
                         baby.setWeight(mCursor.getDouble(6));
                         baby.setHairColor(mCursor.getString(7));
+                        baby.setProfilePicture(mCursor.getString(8));
 
                     } while(mCursor.moveToNext());
 
@@ -80,7 +81,8 @@ public class BabyHomeActivity extends FragmentActivity {
 
     public void showEventList(View view) {
         System.out.println("show EventListFragment");
-
+        mTabHost.addTab(mTabHost.newTabSpec("tab4").setIndicator("Event List"),
+                EventListFragment.class, null);
     }
 
     public void deleteBabies(View view) {

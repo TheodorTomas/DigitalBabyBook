@@ -13,7 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
 
     public static final String BabyTable = "babies";
-    public static final String[] TableBabyCols = {"_id", "name", "dateOfBirth", "birthLocation", "gender", "size", "weight", "hairColor"};
+    public static final String[] TableBabyCols = {"_id", "name", "dateOfBirth", "birthLocation", "gender", "size", "weight", "hairColor", "profilePicture"};
 
     private static final String sqlCreateTableBabies = "CREATE TABLE babies(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -23,7 +23,8 @@ public class DbHelper extends SQLiteOpenHelper {
             " gender TEXT NOT NULL, " +
             " size DOUBLE NULL, " +
             " weight DOUBLE NULL, " +
-            " hairColor TEXT NULL " +
+            " hairColor TEXT NULL, " +
+            " profilePicture TEXT NULL " +
             ");";
 
     private static final String sqlDropTableBabies =

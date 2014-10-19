@@ -13,6 +13,7 @@ public class Baby {
     private double size;
     private double weight;
     private String hairColor;
+    private String profilePicture;
 
     public Baby() {
 
@@ -78,7 +79,15 @@ public class Baby {
         this.hairColor = hairColor;
     }
 
-    public Baby(String name, String dateOfBirth, String birthLocation, String gender, double size, double weight, String hairColor) {
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public Baby(String name, String dateOfBirth, String birthLocation, String gender, double size, double weight, String hairColor, String profilePicture) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.birthLocation = birthLocation;
@@ -86,6 +95,7 @@ public class Baby {
         this.size = size;
         this.weight = weight;
         this.hairColor = hairColor;
+        this.profilePicture = profilePicture;
     }
 
 
