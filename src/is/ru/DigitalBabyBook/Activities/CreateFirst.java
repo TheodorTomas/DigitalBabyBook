@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
-import is.ru.DigitalBabyBook.domain.BirthdayEvent;
+import is.ru.DigitalBabyBook.domain.HolidayEvent;
 import is.ru.DigitalBabyBook.domain.First;
 
 import java.util.Calendar;
