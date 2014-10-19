@@ -3,21 +3,17 @@ package is.ru.DigitalBabyBook.Activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
-import is.ru.DigitalBabyBook.adapters.BabyAdapter;
-import is.ru.DigitalBabyBook.domain.Baby;
 import is.ru.DigitalBabyBook.domain.BirthdayEvent;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Tommz on 18.10.2014.
@@ -29,7 +25,7 @@ public class CreateHoliday extends Activity {
     private Global global = Global.getInstance();
     //Might need an adapter
 
-    private Button pickDate;
+    private ImageView pickDate;
     private TextView dateDisplay;
     private int mYear;
     private int mMonth;
@@ -43,8 +39,8 @@ public class CreateHoliday extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
         setContentView(R.layout.add_holiday);
 
-        dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
-        pickDate = (Button) this.findViewById(R.id.datePicker);
+        dateDisplay = (TextView) this.findViewById(R.id.holiday_dateDisplay);
+        pickDate = (ImageView) this.findViewById(R.id.holiday_datePicker);
 
 
         pickDate.setOnClickListener(new View.OnClickListener(){
