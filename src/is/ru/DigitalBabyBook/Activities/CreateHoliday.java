@@ -41,23 +41,23 @@ public class CreateHoliday extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
-        setContentView(R.layout.add_event_form);
+        setContentView(R.layout.add_holiday);
 
-//        dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
-//        pickDate = (Button) this.findViewById(R.id.datePicker);
-//
-//
-//        pickDate.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v){
-//                showDialog(DATE_DIALOG_ID);
-//            }
-//        });
-//
-//        final Calendar c = Calendar.getInstance();
-//        mYear = c.get(Calendar.YEAR);
-//        mMonth = c.get(Calendar.MONTH);
-//        mDay = c.get(Calendar.DAY_OF_MONTH);
-//        updateDisplay();
+        dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
+        pickDate = (Button) this.findViewById(R.id.datePicker);
+
+
+        pickDate.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        updateDisplay();
 
     }
     public void addHoliday(View view) {

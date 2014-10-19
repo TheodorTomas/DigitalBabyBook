@@ -1,10 +1,12 @@
 package is.ru.DigitalBabyBook.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 import is.ru.DigitalBabyBook.R;
@@ -51,14 +53,26 @@ public class EventListFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        V.getContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+                if(listDataHeader.get(groupPosition) == "Holiday") {
+                    Toast.makeText(
+                            V.getContext(),
+                            listDataHeader.get(groupPosition)
+                                    + " : "
+                                    + listDataChild.get(
+                                    listDataHeader.get(groupPosition)).get(
+                                    childPosition), Toast.LENGTH_SHORT)
+                            .show();
+
+
+                    Intent i = new Intent(v.getContext(), CreateHoliday.class);
+
+                    i.putExtra("Group", listDataHeader.get(groupPosition).toString());
+                    i.putExtra("Type", listDataChild.get(
+                            listDataHeader.get(groupPosition)).get(
+                            childPosition).toString());
+
+//                    startActivity(i);
+                }
                 return false;
             }
         });
@@ -71,7 +85,7 @@ public class EventListFragment extends Fragment {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("Holidays");
+        listDataHeader.add("Holiday");
         listDataHeader.add("First");
         listDataHeader.add("Favorite");
 
