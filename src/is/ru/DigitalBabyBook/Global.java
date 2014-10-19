@@ -23,13 +23,28 @@ public class Global {
         return mInstance;
     }
 
-    public String calculateAge(String dateOfBirth) throws ParseException {
+    public String calculateAge(String dateOfBirth, String from)  {
         SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy", Locale.ENGLISH);
 
-        Date date = dateFormat.parse(dateOfBirth);
+
+        Date date = null;
+        Date now1 = null;
+        try {
+            date = dateFormat.parse(dateOfBirth);
+            if (from != null) {
+                now1 = dateFormat.parse(from);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         LocalDate birthdate = new LocalDate (date);
-        LocalDate now = new LocalDate();
+        LocalDate now;
+        if (from != null) {
+            now = new LocalDate(now1);
+        } else {
+            now = new LocalDate();
+        }
         Period periodWeek = new Period(birthdate, now, PeriodType.yearWeekDay());
         Period periodMonth = new Period(birthdate, now, PeriodType.yearMonthDay());
 
@@ -38,16 +53,15 @@ public class Global {
         String week = isPlural(periodWeek.getWeeks()) ? " week" : " weeks";
         String year = isPlural(periodMonth.getYears()) ? " year" : " years";
 
+        if (periodMonth.getYears() > 1) {
+            return periodMonth.getYears() +  year + " and " + periodMonth.getMonths() + month;
+        }
         if (periodMonth.getMonths() < 3) {
             if (periodMonth.getMonths() == 0) {
                 return periodMonth.getDays() + day;
             }
             day = isPlural(periodWeek.getDays()) ? " day" : " days";
             return periodWeek.getWeeks() + week + " and " + periodWeek.getDays() + day;
-        }
-
-        if (periodMonth.getYears() > 1) {
-            return periodMonth.getYears() +  year + " and " + periodMonth.getMonths() + month;
         }
         week = isPlural(periodWeek.getWeeks() % periodMonth.getMonths()) ? " week" : " weeks";
         return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week;

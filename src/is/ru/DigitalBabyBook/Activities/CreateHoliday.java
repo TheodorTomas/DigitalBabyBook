@@ -70,16 +70,17 @@ public class CreateHoliday extends Activity {
 
         String group = extras.getString("group");
         String type = extras.getString("type");
-        String tempDescription = global.selectedBaby.getName() + " had a great " + type;
+        String tempDescription = global.selectedBaby.getName() + " had a great " + type +
+                " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday.getText().toString());
 
         event = new HolidayEvent(
                 type,
                 tempDescription,
-                dateOfHoliday.toString(),
-                location.toString(),
-                photos.toString(),
-                gifts.toString(),
-                notes.toString(),
+                dateOfHoliday.getText().toString(),
+                location.getText().toString(),
+                photos.getText().toString(),
+                gifts.getText().toString(),
+                notes.getText().toString(),
                 global.selectedBaby
         );
 
