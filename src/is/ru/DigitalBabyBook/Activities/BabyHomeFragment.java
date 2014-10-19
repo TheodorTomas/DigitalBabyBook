@@ -9,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
+import is.ru.DigitalBabyBook.domain.HolidayEvent;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by arnif on 10/18/14.
@@ -57,15 +61,41 @@ public class BabyHomeFragment extends Fragment {
         TextView babyAge = (TextView) V.findViewById(R.id.home_babyAge);
         babyAge.setText(age + " old");
 
-        //updateEventFeed();
-
+        updateHolidayEventFeed(V);
         return V;
     }
 
-    private void updateEventFeed() {
+    private void updateHolidayEventFeed(View v) {
         long babyId = global.selectedBaby.getId();
 
+        ArrayList<HolidayEvent> holidayEvents = new ArrayList<HolidayEvent>();
         mCursor = mBA.queryHoliday(babyId);
+
+        if (mCursor.moveToFirst()) {
+            do {
+                // "babyID 1", "type 2", "description 3", "date 4", "location 5", "photo 6", "gifts 7", "notes 8" };
+                HolidayEvent b = new HolidayEvent();
+                b.setType(mCursor.getString(2));
+                b.setEventDescription(mCursor.getString(3));
+                b.setDate(mCursor.getString(4));
+                b.setLocation(mCursor.getString(5));
+                b.setPhotos(mCursor.getString(6));
+                b.setGifts(mCursor.getString(7));
+                b.setNotes(mCursor.getString(8));
+
+                holidayEvents.add(b);
+
+            } while (mCursor.moveToNext());
+        }
+
+        mBA.close();
+        Collections.reverse(holidayEvents);
+        LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.home_eventFeed);
+        for (HolidayEvent holidayEvent : holidayEvents) {
+            TextView t = new TextView(v.getContext());
+            t.setText(holidayEvent.getEventDescription());
+            linearLayout.addView(t);
+        }
     }
 
 

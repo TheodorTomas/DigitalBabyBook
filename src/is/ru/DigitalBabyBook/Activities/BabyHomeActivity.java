@@ -12,6 +12,7 @@ import android.view.Window;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
+import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
 import is.ru.DigitalBabyBook.domain.Baby;
 
 /**
@@ -97,7 +98,9 @@ public class BabyHomeActivity extends FragmentActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         BabyAdapter babyAdapter = new BabyAdapter(babyHomeActivity);
+                        HolidayEventAdapter holidayEventAdapter = new HolidayEventAdapter(babyHomeActivity);
                         babyAdapter.deleteAll();
+                        holidayEventAdapter.deleteAll();
 
                         startActivity(new Intent(getBaseContext(),MainActivity.class));
                     }

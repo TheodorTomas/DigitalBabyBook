@@ -13,7 +13,7 @@ import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
-import is.ru.DigitalBabyBook.domain.BirthdayEvent;
+import is.ru.DigitalBabyBook.domain.HolidayEvent;
 
 import java.util.Calendar;
 
@@ -23,7 +23,7 @@ import java.util.Calendar;
 public class CreateHoliday extends Activity {
 
 
-    private BirthdayEvent event;
+    private HolidayEvent event;
     private Global global = Global.getInstance();
     private HolidayEventAdapter mHEA = new HolidayEventAdapter(this);
 
@@ -72,7 +72,7 @@ public class CreateHoliday extends Activity {
         String type = extras.getString("type");
         String tempDescription = global.selectedBaby.getName() + " had a great " + type;
 
-        event = new BirthdayEvent(
+        event = new HolidayEvent(
                 type,
                 tempDescription,
                 dateOfHoliday.toString(),

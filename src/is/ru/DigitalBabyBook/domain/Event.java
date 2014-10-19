@@ -13,6 +13,8 @@ public class Event {
     private String notes;
     private Baby baby;
 
+    public Event() {};
+
     public Event(String type, String eventDescription, String date, String location, String photos, String notes, Baby baby) {
         this.type = type;
         this.eventDescription = eventDescription;
