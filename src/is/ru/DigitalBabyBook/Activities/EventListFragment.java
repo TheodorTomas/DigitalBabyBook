@@ -53,27 +53,29 @@ public class EventListFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+
+                Toast.makeText(
+                    V.getContext(),
+                    listDataHeader.get(groupPosition)
+                    + " : "
+                    + listDataChild.get(
+                    listDataHeader.get(groupPosition)).get(
+                    childPosition), Toast.LENGTH_SHORT)
+                    .show();
+                Intent i = null;
                 if(listDataHeader.get(groupPosition) == "Holiday") {
-                    Toast.makeText(
-                            V.getContext(),
-                            listDataHeader.get(groupPosition)
-                                    + " : "
-                                    + listDataChild.get(
-                                    listDataHeader.get(groupPosition)).get(
-                                    childPosition), Toast.LENGTH_SHORT)
-                            .show();
+                    i = new Intent(v.getContext(), CreateHoliday.class);
 
 
-                    Intent i = new Intent(v.getContext(), CreateHoliday.class);
-
-                    i.putExtra("group", listDataHeader.get(groupPosition).toString());
-                    i.putExtra("type", listDataChild.get(
-                            listDataHeader.get(groupPosition)).get(
-                            childPosition).toString());
-
-                    startActivity(i);
                 }
-                return false;
+                else if(listDataHeader.get(groupPosition) == "First"){
+                    i = new Intent(v.getContext(), CreateFirst.class);
+                }
+                i.putExtra("group", listDataHeader.get(groupPosition).toString());
+                i.putExtra("type", listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).toString());
+
+                startActivity(i);
+                    return false;
             }
         });
 
