@@ -78,6 +78,11 @@ public class BabyHomeActivity extends FragmentActivity {
         startActivity(new Intent(getBaseContext(), AddEventFormActivity.class));
     }
 
+    public void showEventList(View view) {
+        System.out.println("show EventListFragment");
+
+    }
+
     public void deleteBabies(View view) {
         //TODO this should be in settings
         final BabyHomeActivity babyHomeActivity = this;

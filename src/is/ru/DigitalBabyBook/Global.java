@@ -49,7 +49,7 @@ public class Global {
             return periodMonth.getYears() +  year + " and " + periodMonth.getMonths() + month;
         }
 
-        return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week + " and " + periodMonth.getDays() + day;
+        return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week;
     }
 
     private boolean isPlural(int number) {
