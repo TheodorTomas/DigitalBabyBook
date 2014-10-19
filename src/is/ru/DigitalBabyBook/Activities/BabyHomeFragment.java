@@ -16,7 +16,6 @@ import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
 import is.ru.DigitalBabyBook.domain.HolidayEvent;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -26,7 +25,7 @@ import java.util.Collections;
 public class BabyHomeFragment extends Fragment {
 
     private static Global global = Global.getInstance();
-    private HolidayEventAdapter mBA;
+    private HolidayEventAdapter MHEA;
     private Cursor mCursor;
 
     @Override
@@ -35,18 +34,12 @@ public class BabyHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View V = inflater.inflate(R.layout.baby_home_tab, container, false);
 
-        mBA = new HolidayEventAdapter(V.getContext());
+        MHEA = new HolidayEventAdapter(V.getContext());
 
         TextView babyName = (TextView) V.findViewById(R.id.home_babyName);
         babyName.setText(global.selectedBaby.getName());
 
-        String age = null;
-        try {
-            age = global.calculateAge(global.selectedBaby.getDateOfBirth());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        String age = global.calculateAge(global.selectedBaby.getDateOfBirth(), null);
 
         if (global.selectedBaby.getProfilePicture() != null) {
             ImageView profileImage = (ImageView) V.findViewById(R.id.home_babyProfilePicture);
@@ -69,7 +62,7 @@ public class BabyHomeFragment extends Fragment {
         long babyId = global.selectedBaby.getId();
 
         ArrayList<HolidayEvent> holidayEvents = new ArrayList<HolidayEvent>();
-        mCursor = mBA.queryHoliday(babyId);
+        mCursor = MHEA.queryHoliday(babyId);
 
         if (mCursor.moveToFirst()) {
             do {
@@ -88,7 +81,7 @@ public class BabyHomeFragment extends Fragment {
             } while (mCursor.moveToNext());
         }
 
-        mBA.close();
+        MHEA.close();
         Collections.reverse(holidayEvents);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.home_eventFeed);
         for (HolidayEvent holidayEvent : holidayEvents) {
