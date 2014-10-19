@@ -66,8 +66,8 @@ public class EventListFragment extends Fragment {
 
                     Intent i = new Intent(v.getContext(), CreateHoliday.class);
 
-                    i.putExtra("Group", listDataHeader.get(groupPosition).toString());
-                    i.putExtra("Type", listDataChild.get(
+                    i.putExtra("group", listDataHeader.get(groupPosition).toString());
+                    i.putExtra("type", listDataChild.get(
                             listDataHeader.get(groupPosition)).get(
                             childPosition).toString());
 

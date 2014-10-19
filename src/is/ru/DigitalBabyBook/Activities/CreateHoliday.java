@@ -57,21 +57,29 @@ public class CreateHoliday extends Activity {
 
     }
     public void addHoliday(View view) {
+        // store group, type and additional input
         TextView eventDescription = (TextView) this.findViewById(R.id.eventDescription);
-        TextView dateOfHoliday = (TextView) this.findViewById(R.id.dateDisplay);
+        TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         TextView location = (TextView) this.findViewById(R.id.location);
         TextView photos = (TextView) this.findViewById(R.id.photos);
         TextView gifts = (TextView) this.findViewById(R.id.gifts);
 //        TextView baby = (TextView) this.findViewById(R.id.baby); ???
 
-//        event = new BirthdayEvent(
-//                eventDescription.toString(),
-//                dateOfHoliday.toString(),
-//                location.toString(),
-//                photos.toString(),
-//                gifts.toString(),
-//                global.selectedBaby
-//        );
+        Bundle extras = getIntent().getExtras();
+
+        String group = extras.getString("group");
+        String type = extras.getString("type");
+        String tempDescription = global.selectedBaby.getName().toString() + " had a great " + type;
+
+        event = new BirthdayEvent(
+                tempDescription,
+                dateOfHoliday.toString(),
+                location.toString(),
+                photos.toString(),
+                gifts.toString(),
+                global.selectedBaby
+        );
+
     }
     @Override
     protected Dialog onCreateDialog(int id) {

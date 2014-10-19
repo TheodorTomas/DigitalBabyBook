@@ -58,6 +58,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Holiday"
-            android:id="@+id/addHoliday" android:layout_gravity="center_horizontal" android:clickable="false"
+            android:id="@+id/addHoliday" android:layout_gravity="center_horizontal" android:clickable="true"
             android:onClick="addHoliday"/>
 </LinearLayout>
