@@ -48,8 +48,8 @@ public class BabyHomeFragment extends Fragment {
             ImageView profileImage = (ImageView) V.findViewById(R.id.home_babyProfilePicture);
             Bitmap d = new BitmapDrawable(V.getResources(), global.selectedBaby.getProfilePicture()).getBitmap();
 
-            int nh = (int) (d.getHeight() * (512.0 / d.getWidth()));
-            Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+            int nh = (int) (d.getHeight() * (256.0 / d.getWidth()));
+            Bitmap scaled = Bitmap.createScaledBitmap(d, 256, nh, true);
 
             profileImage.setImageBitmap(scaled);
         }

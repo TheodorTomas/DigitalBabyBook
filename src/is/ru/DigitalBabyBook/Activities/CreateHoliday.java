@@ -65,7 +65,6 @@ public class CreateHoliday extends Activity {
         TextView location = (TextView) this.findViewById(R.id.location);
         TextView photos = (TextView) this.findViewById(R.id.photos);
         TextView gifts = (TextView) this.findViewById(R.id.gifts);
-//        TextView baby = (TextView) this.findViewById(R.id.baby); ???
 
         Bundle extras = getIntent().getExtras();
 
