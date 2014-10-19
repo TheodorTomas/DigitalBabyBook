@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
@@ -33,34 +32,34 @@ public class BabyHomeActivity extends FragmentActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
         setContentView(R.layout.baby_tabs);
 
+        if (global.selectedBaby == null) {
+            Baby baby = new Baby();
 
-        Baby baby = new Baby();
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                long babyId = extras.getLong("babyId");
+                if (babyId > -1) {
+                    mCursor = mBA.queryBaby(babyId);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            long babyId = extras.getLong("babyId");
-            if (babyId > -1) {
-                mCursor = mBA.queryBaby(babyId);
+                    if (mCursor.moveToFirst()) {
+                        do {
+                            //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7", "profilePicture 8"
+                            baby.setName(mCursor.getString(1));
+                            baby.setDateOfBirth(mCursor.getString(2));
+                            baby.setBirthLocation(mCursor.getString(3));
+                            baby.setGender(mCursor.getString(4));
+                            baby.setSize(mCursor.getDouble(5));
+                            baby.setWeight(mCursor.getDouble(6));
+                            baby.setHairColor(mCursor.getString(7));
+                            baby.setProfilePicture(mCursor.getString(8));
 
-                if (mCursor.moveToFirst()) {
-                    do {
-                        //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7", "profilePicture 8"
-                        baby.setName(mCursor.getString(1));
-                        baby.setDateOfBirth(mCursor.getString(2));
-                        baby.setBirthLocation(mCursor.getString(3));
-                        baby.setGender(mCursor.getString(4));
-                        baby.setSize(mCursor.getDouble(5));
-                        baby.setWeight(mCursor.getDouble(6));
-                        baby.setHairColor(mCursor.getString(7));
-                        baby.setProfilePicture(mCursor.getString(8));
+                        } while(mCursor.moveToNext());
 
-                    } while(mCursor.moveToNext());
-
+                    }
+                    mBA.close();
+                    global.selectedBaby = baby;
                 }
-                mBA.close();
-                global.selectedBaby = baby;
             }
-
         }
 
         //thx http://stackoverflow.com/questions/17227855/tabhost-with-fragments-and-fragmentactivity

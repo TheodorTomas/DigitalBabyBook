@@ -22,6 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String sqlCreateTableHolidayEvents = "CREATE TABLE holidayEvents(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
             " babyID INTEGER NOT NULL," +
+            " type TEXT NOT NULL," +
             " description TEXT NOT NULL, " +
             " date DATE NOT NULL," +
             " location TEXT NULL, " +

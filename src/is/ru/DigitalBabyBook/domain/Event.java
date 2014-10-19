@@ -1,25 +1,34 @@
 package is.ru.DigitalBabyBook.domain;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * Created by arnif on 10/14/14.
  */
 public class Event {
 
-    public String eventDescription;
-    public String date;
-    public String location;
-    public String photos;
-    public Baby baby;
+    private String type;
+    private String eventDescription;
+    private String date;
+    private String location;
+    private String photos;
+    private String notes;
+    private Baby baby;
 
-    public Event(String eventDescription, String date, String location, String photos, Baby baby) {
+    public Event(String type, String eventDescription, String date, String location, String photos, String notes, Baby baby) {
+        this.type = type;
         this.eventDescription = eventDescription;
         this.date = date;
         this.location = location;
         this.photos = photos;
+        this.notes = notes;
         this.baby = baby;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getEventDescription() {
@@ -52,6 +61,14 @@ public class Event {
 
     public void setPhotos(String photos) {
         this.photos = photos;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
 

@@ -3,6 +3,7 @@ package is.ru.DigitalBabyBook.Activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
 import is.ru.DigitalBabyBook.domain.BirthdayEvent;
 
 import java.util.Calendar;
@@ -23,7 +25,7 @@ public class CreateHoliday extends Activity {
 
     private BirthdayEvent event;
     private Global global = Global.getInstance();
-    //Might need an adapter
+    private HolidayEventAdapter mHEA = new HolidayEventAdapter(this);
 
     private ImageView pickDate;
     private TextView dateDisplay;
@@ -58,7 +60,7 @@ public class CreateHoliday extends Activity {
     }
     public void addHoliday(View view) {
         // store group, type and additional input
-        TextView eventDescription = (TextView) this.findViewById(R.id.eventDescription);
+        TextView notes = (TextView) this.findViewById(R.id.eventDescription);
         TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         TextView location = (TextView) this.findViewById(R.id.location);
         TextView photos = (TextView) this.findViewById(R.id.photos);
@@ -69,16 +71,36 @@ public class CreateHoliday extends Activity {
 
         String group = extras.getString("group");
         String type = extras.getString("type");
-        String tempDescription = global.selectedBaby.getName().toString() + " had a great " + type;
+        String tempDescription = global.selectedBaby.getName() + " had a great " + type;
 
         event = new BirthdayEvent(
+                type,
                 tempDescription,
                 dateOfHoliday.toString(),
                 location.toString(),
                 photos.toString(),
                 gifts.toString(),
+                notes.toString(),
                 global.selectedBaby
         );
+
+        //add to db
+        long l = mHEA.insertHoliday(
+                global.selectedBaby.getId(),
+                event.getType(),
+                event.getEventDescription(),
+                event.getDate(),
+                event.getLocation(),
+                event.getPhotos(),
+                event.getGifts(),
+                event.getNotes());
+        mHEA.close();
+
+        Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
+        i.putExtra("babyId", global.selectedBaby.getId());
+
+        startActivity(i);
+
 
     }
     @Override

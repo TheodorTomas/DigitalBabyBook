@@ -1,5 +1,6 @@
 package is.ru.DigitalBabyBook.Activities;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
 
 import java.text.ParseException;
 
@@ -20,12 +22,16 @@ import java.text.ParseException;
 public class BabyHomeFragment extends Fragment {
 
     private static Global global = Global.getInstance();
+    private HolidayEventAdapter mBA;
+    private Cursor mCursor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View V = inflater.inflate(R.layout.baby_home_tab, container, false);
+
+        mBA = new HolidayEventAdapter(V.getContext());
 
         TextView babyName = (TextView) V.findViewById(R.id.home_babyName);
         babyName.setText(global.selectedBaby.getName());
@@ -51,7 +57,15 @@ public class BabyHomeFragment extends Fragment {
         TextView babyAge = (TextView) V.findViewById(R.id.home_babyAge);
         babyAge.setText(age + " old");
 
+        //updateEventFeed();
+
         return V;
+    }
+
+    private void updateEventFeed() {
+        long babyId = global.selectedBaby.getId();
+
+        mCursor = mBA.queryHoliday(babyId);
     }
 
 
