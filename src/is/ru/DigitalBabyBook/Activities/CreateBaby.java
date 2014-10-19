@@ -16,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
+import is.ru.DigitalBabyBook.GPSTracker;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
@@ -46,6 +47,9 @@ public class CreateBaby extends Activity {
     // GUI components
     private ImageView image;// ImageView
 
+    private GPSTracker gps;
+    private Button btnShowLocation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,6 @@ public class CreateBaby extends Activity {
 
         dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
         pickDate = (ImageView) this.findViewById(R.id.datePicker);
-
 
         pickDate.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -113,6 +116,33 @@ public class CreateBaby extends Activity {
                 e.printStackTrace();
             }
         }
+
+        btnShowLocation = (Button) findViewById(R.id.getCurrentLocation);
+
+        btnShowLocation.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // create class object
+                gps = new GPSTracker(CreateBaby.this);
+
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+
+            }
+        });
     }
 
     public void addBaby(View view) {
