@@ -51,16 +51,22 @@ public class EventListFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+
+                Intent i = null;
                 if(listDataHeader.get(groupPosition) == "Holiday") {
-                    Intent i = new Intent(v.getContext(), CreateHoliday.class);
-
-                    i.putExtra("group", listDataHeader.get(groupPosition).toString());
-                    i.putExtra("type", listDataChild.get(
-                            listDataHeader.get(groupPosition)).get(
-                            childPosition).toString());
-
-                    startActivity(i);
+                    i = new Intent(v.getContext(), CreateHoliday.class);
                 }
+                else if(listDataHeader.get(groupPosition) == "First") {
+                    i = new Intent(v.getContext(), CreateFirst.class);
+                }
+                else if(listDataHeader.get(groupPosition) == "Favorite") {
+                    i = new Intent(v.getContext(), CreateFavorite.class);
+                }
+                i.putExtra("group", listDataHeader.get(groupPosition).toString());
+                i.putExtra("type", listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).toString());
+
+                startActivity(i);
+
                 return false;
             }
         });
