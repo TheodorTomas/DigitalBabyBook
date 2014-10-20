@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,15 +66,17 @@ public class CreateHoliday extends Activity {
         updateDisplay();
 
         TextView holidayType = (TextView) this.findViewById(R.id.holidayType);
+        Button addHoliday = (Button) this.findViewById(R.id.addHoliday);
         holidayType.setText(type);
+        addHoliday.setText("Add " + type);
 
         if (global.selectedBaby.getGender().equals("boy")){
             holidayType.setBackgroundColor(Color.rgb(51, 181, 229));
-            holidayType.setTextColor(Color.WHITE);
+            addHoliday.setBackground(getResources().getDrawable(R.drawable.boybtnholiday));
         }
         else {
             holidayType.setBackgroundColor(Color.rgb(246, 96, 171));
-            holidayType.setTextColor(Color.WHITE);
+            addHoliday.setBackground(getResources().getDrawable(R.drawable.girlbtnholiday));
         }
 
         dateDisplay.setText("Date");

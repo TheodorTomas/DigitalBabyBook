@@ -18,6 +18,7 @@
                 android:text="Add Holiday"
                 android:id="@+id/holidayType"
                 android:textStyle="bold"
+                android:textColor="#ffffffff"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginBottom="20dp"
@@ -27,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventDescription"
-                android:hint="Description"
+                android:hint="Notes"
+                android:maxLines="10"
                 android:layout_marginBottom="20dp"/>
 
         <LinearLayout
@@ -76,8 +78,12 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Holiday"
-                android:id="@+id/addHoliday" android:layout_gravity="center_horizontal" android:clickable="true"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:id="@+id/addHoliday"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:textColor="#ffffffff"
                 android:onClick="addHoliday"/>
     </LinearLayout>
 </ScrollView>
