@@ -53,28 +53,32 @@ public class EventListFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                if(listDataHeader.get(groupPosition) == "Holiday") {
-                    Toast.makeText(
-                            V.getContext(),
-                            listDataHeader.get(groupPosition)
-                                    + " : "
-                                    + listDataChild.get(
-                                    listDataHeader.get(groupPosition)).get(
-                                    childPosition), Toast.LENGTH_SHORT)
-                            .show();
 
-
-                    Intent i = new Intent(v.getContext(), CreateHoliday.class);
-
-                    i.putExtra("group", listDataHeader.get(groupPosition).toString());
-                    i.putExtra("type", listDataChild.get(
-                            listDataHeader.get(groupPosition)).get(
-                            childPosition).toString());
-
-                    startActivity(i);
+                Toast.makeText(
+                        V.getContext(),
+                        listDataHeader.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                Intent i = null;
+                if (listDataHeader.get(groupPosition) == "Holiday") {
+                    i = new Intent(v.getContext(), CreateHoliday.class);
+                } else if (listDataHeader.get(groupPosition) == "First") {
+                    i = new Intent(v.getContext(), CreateFirst.class);
                 }
-                return false;
-            }
+                else if (listDataHeader.get(groupPosition) == "Favorite") {
+                    i = new Intent(v.getContext(), CreateFavorite.class);
+                }
+                i.putExtra("group", listDataHeader.get(groupPosition).toString());
+                i.putExtra("type", listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).toString());
+
+                startActivity(i);
+
+
+            return false;
+        }
         });
 
         return V;

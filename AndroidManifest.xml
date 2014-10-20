@@ -20,5 +20,7 @@
         <activity android:name=".Activities.BabyHomeActivity"/>
         <activity android:name=".Activities.AddEventFormActivity"/>
         <activity android:name=".Activities.CreateHoliday"/>
+        <activity android:name=".Activities.CreateFirst"/>
+        <activity android:name=".Activities.CreateFavorite"/>
     </application>
 </manifest>
