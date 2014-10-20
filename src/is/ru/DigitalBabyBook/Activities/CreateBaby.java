@@ -69,6 +69,9 @@ public class CreateBaby extends Activity {
         mDay = c.get(Calendar.DAY_OF_MONTH);
         updateDisplay();
 
+        dateDisplay.setText("Date of Birth");
+        dateDisplay.setTextColor(Color.rgb(173, 173, 173));
+
         addBaby = (Button) this.findViewById(R.id.addBaby);
         addBaby.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +221,7 @@ public class CreateBaby extends Activity {
                         .append(mMonth + 1).append("-")
                         .append(mDay).append("-")
                         .append(mYear).append(" "));
+        dateDisplay.setTextColor(Color.BLACK);
     }
     private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
