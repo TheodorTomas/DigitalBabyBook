@@ -62,6 +62,11 @@ public class CreateBaby extends Activity {
                 showDialog(DATE_DIALOG_ID);
             }
         });
+        dateDisplay.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);

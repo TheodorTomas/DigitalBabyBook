@@ -58,6 +58,11 @@ public class CreateHoliday extends Activity {
                 showDialog(DATE_DIALOG_ID);
             }
         });
+        dateDisplay.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -78,7 +83,6 @@ public class CreateHoliday extends Activity {
             holidayType.setBackgroundColor(Color.rgb(246, 96, 171));
             addHoliday.setBackground(getResources().getDrawable(R.drawable.girlbtnholiday));
         }
-
         dateDisplay.setText("Date");
         dateDisplay.setTextColor(Color.rgb(173, 173, 173));
     }
