@@ -15,9 +15,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String BabyTable = "babies";
     public static final String[] TableBabyCols = {"_id", "name", "dateOfBirth", "birthLocation", "gender", "size", "weight", "hairColor", "profilePicture"};
 
-    //String eventDescription, Date date, String location, ArrayList<Byte> photos, ArrayList<String> gifts, Baby baby
     public static final String HolidayEventTable = "holidayEvents";
     public static final String[] TableHolidayEventCols = {"_id", "babyID", "type", "description", "date", "location", "photo", "gifts", "notes" };
+
+    public static final String EventDescriptionTable = "eventDescriptions";
+    public static final String[] TableEventDescriptionCols = { "_id", " eventID", "description" };
 
     private static final String sqlCreateTableHolidayEvents = "CREATE TABLE holidayEvents(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -43,6 +45,14 @@ public class DbHelper extends SQLiteOpenHelper {
             " hairColor TEXT NULL, " +
             " profilePicture TEXT NULL " +
             ");";
+
+    private static final String sqlCreateTableEventDescriptions = "CREATE TABLE eventDescriptions(" +
+            " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            " eventID INTEGER NOT NULL, " +
+            " description TEXT NOT NULL, " +
+            " FOREIGN KEY(eventID) REFERENCES holidayEvents(_id)" +
+            ");";
+
 
     private static final String sqlDropTableBabies =
             "DROP TABLE IF EXISTS babies";

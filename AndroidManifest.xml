@@ -22,5 +22,6 @@
         <activity android:name=".Activities.CreateHoliday"/>
         <activity android:name=".Activities.CreateFirst"/>
         <activity android:name=".Activities.CreateFavorite"/>
+        <activity android:name=".Activities.ViewHoliday"/>
     </application>
 </manifest>

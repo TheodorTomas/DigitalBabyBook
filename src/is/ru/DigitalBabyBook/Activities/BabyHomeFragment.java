@@ -8,9 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
@@ -84,11 +82,30 @@ public class BabyHomeFragment extends Fragment {
         mHEA.close();
         Collections.reverse(holidayEvents);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.home_eventFeed);
+        //LinearLayout linearLayout = new LinearLayout(v.getContext());
+        ListView listView = new ListView(v.getContext());
+        ArrayList<String> values = new ArrayList<String>();
+
         for (HolidayEvent holidayEvent : holidayEvents) {
-            TextView t = new TextView(v.getContext());
-            t.setText(holidayEvent.getEventDescription());
-            linearLayout.addView(t);
+            values.add(holidayEvent.getEventDescription());
         }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), R.layout.event_home_feed_list, values);
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(position);
+            }
+        });
+
+
+
+
+        linearLayout.addView(listView, TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT);
+        LinearLayout.LayoutParams layoutParams  = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 600);
+        linearLayout.setLayoutParams(layoutParams);
     }
 
 

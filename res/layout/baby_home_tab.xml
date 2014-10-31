@@ -19,12 +19,22 @@
                           android:layout_height="match_parent"
                           android:orientation="horizontal">
 
-                <ImageView
+                <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp">
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="6dp"
                         android:id="@+id/home_babyProfilePicture"
-                        android:src="@drawable/boy_placeholder"
-                        />
+                        android:src="@drawable/boy_placeholder"/>
+                    <ImageView
+                            android:src="@drawable/frame"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </FrameLayout>
+
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="match_parent"
                               android:orientation="vertical">
@@ -46,24 +56,12 @@
 
             <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="10dp"
                     android:id="@+id/home_eventFeed"
                     android:orientation="vertical">
 
             </LinearLayout>
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/eventform" android:layout_gravity="center_horizontal"
-                    android:onClick="goToEventForm"/>
-            <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delete babies"
-                    android:onClick="deleteBabies"
-                    android:id="@+id/button" android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </ScrollView>
 
