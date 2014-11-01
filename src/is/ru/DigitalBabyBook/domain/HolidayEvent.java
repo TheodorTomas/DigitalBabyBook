@@ -7,6 +7,7 @@ public class HolidayEvent extends Event { //and christmas ??
 
     public String gifts;
     public Baby baby;
+    private int holiDayID;
 
     public HolidayEvent() {};
 
@@ -22,5 +23,13 @@ public class HolidayEvent extends Event { //and christmas ??
 
     public void setGifts(String gifts) {
         this.gifts = gifts;
+    }
+
+    public void setHoliDayID(int holiDayID) {
+        this.holiDayID = holiDayID;
+    }
+
+    public int getHoliDayID() {
+        return holiDayID;
     }
 }

@@ -1,5 +1,6 @@
 package is.ru.DigitalBabyBook.Activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -62,13 +63,14 @@ public class BabyHomeFragment extends Fragment {
     private void updateHolidayEventFeed(View v) {
         long babyId = global.selectedBaby.getId();
 
-        ArrayList<Event> events = new ArrayList<Event>();
+        final ArrayList<Event> events = new ArrayList<Event>();
         mCursor = eventAdapter.queryEventByBabyID(babyId);
 
         if (mCursor.moveToFirst()) {
             do {
                 //"babyID  1", "description  2", "date  3", "photo  4", "type 5"
                 Event e = new Event();
+                e.setEventID(mCursor.getInt(0));
                 e.setEventDescription(mCursor.getString(2));
                 e.setDate(mCursor.getString(3));
                 e.setPhotos(mCursor.getString(4));
@@ -97,6 +99,12 @@ public class BabyHomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(position);
+                Event event = events.get(position);
+                System.out.println(event.getEventDescription());
+                Intent i = new Intent(view.getContext(), ViewHoliday.class);
+                i.putExtra("eventId", event.getEventID());
+                i.putExtra("eventType", event.getType());
+                startActivity(i);
             }
         });
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import is.ru.DigitalBabyBook.adapters.EventAdapter;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
 import is.ru.DigitalBabyBook.domain.HolidayEvent;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -38,6 +40,10 @@ public class CreateHoliday extends Activity {
     private int mDay;
     private String group;
     private String type;
+    private boolean edit = false;
+    private int holidayID;
+    private int eventId;
+    private String tempDescription;
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -51,6 +57,9 @@ public class CreateHoliday extends Activity {
 
         group = extras.getString("group");
         type = extras.getString("type");
+        edit = extras.getBoolean("edit");
+        holidayID = extras.getInt("holidayId");
+        eventId = extras.getInt("eventId");
 
         dateDisplay = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         pickDate = (ImageView) this.findViewById(R.id.holiday_datePicker);
@@ -73,8 +82,8 @@ public class CreateHoliday extends Activity {
         updateDisplay();
 
         TextView holidayType = (TextView) this.findViewById(R.id.holidayType);
-        Button addHoliday = (Button) this.findViewById(R.id.addHoliday);
         holidayType.setText(type);
+        Button addHoliday = (Button) this.findViewById(R.id.addHoliday);
         addHoliday.setText("Add " + type);
 
         if (global.selectedBaby.getGender().equals("boy")){
@@ -87,6 +96,11 @@ public class CreateHoliday extends Activity {
         }
         dateDisplay.setText("Date");
         dateDisplay.setTextColor(Color.rgb(173, 173, 173));
+
+
+        if (edit) {
+            changeToEditMode();
+        }
     }
     public void addHoliday(View view) {
         // store group, type and additional input
@@ -96,8 +110,7 @@ public class CreateHoliday extends Activity {
         TextView photos = (TextView) this.findViewById(R.id.photos);
         TextView gifts = (TextView) this.findViewById(R.id.gifts);
 
-        String tempDescription = global.selectedBaby.getName() + " had a great " + type +
-                " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday.getText().toString());
+       tempDescription = createDescription(dateOfHoliday.getText().toString());
 
         event = new HolidayEvent(
                 type,
@@ -110,27 +123,58 @@ public class CreateHoliday extends Activity {
                 global.selectedBaby
         );
 
-        //add to eventDatabase
-        long eventID = eventAdapter.insertEvent(
-                global.selectedBaby.getId(),
-                tempDescription,
-                event.getDate(),
-                event.getPhotos(),
-                event.getType());
-        eventAdapter.close();
+        if (edit) {
+            //edit event
+            System.out.println("edit the event");
+            System.out.println("Event id " + eventId );
+            System.out.println("Holiday id " + holidayID);
+            long updateEventId = eventAdapter.updateEvent(
+                    eventId,
+                    global.selectedBaby.getId(),
+                    event.getEventDescription(),
+                    event.getDate(),
+                    event.getPhotos(),
+                    event.getType());
+            eventAdapter.close();
+
+            long updateHolidayId = holidayEventAdapter.updateHoliday(
+                    holidayID,
+                    global.selectedBaby.getId(),
+                    eventId,
+                    event.getEventDescription(),
+                    event.getDate(),
+                    event.getLocation(),
+                    event.getPhotos(),
+                    event.getGifts(),
+                    event.getNotes());
+            holidayEventAdapter.close();
+
+            System.out.println("update event ID " + updateEventId );
+            System.out.println("update holiday ID " + updateHolidayId);
+        } else {
+            //add to eventDatabase
+            long eventID = eventAdapter.insertEvent(
+                    global.selectedBaby.getId(),
+                    tempDescription,
+                    event.getDate(),
+                    event.getPhotos(),
+                    event.getType());
+            eventAdapter.close();
 
 
-        //add to db
-        long l = holidayEventAdapter.insertHoliday(
-                global.selectedBaby.getId(),
-                eventID,
-                event.getEventDescription(),
-                event.getDate(),
-                event.getLocation(),
-                event.getPhotos(),
-                event.getGifts(),
-                event.getNotes());
-        holidayEventAdapter.close();
+            //add to db
+            long l = holidayEventAdapter.insertHoliday(
+                    global.selectedBaby.getId(),
+                    eventID,
+                    event.getEventDescription(),
+                    event.getDate(),
+                    event.getLocation(),
+                    event.getPhotos(),
+                    event.getGifts(),
+                    event.getNotes());
+            holidayEventAdapter.close();
+        }
+
 
         Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
         i.putExtra("babyId", global.selectedBaby.getId());
@@ -139,6 +183,56 @@ public class CreateHoliday extends Activity {
 
 
     }
+
+    private void changeToEditMode() {
+        System.out.println("EventID " + eventId);
+        System.out.println("holidayID " + holidayID);
+        Button addHoliday = (Button) this.findViewById(R.id.addHoliday);
+        addHoliday.setText("Edit " + type);
+        ArrayList<HolidayEvent> holidayEvents = new ArrayList<HolidayEvent>();
+        HolidayEvent h;
+        Cursor mCursor = holidayEventAdapter.queryHolidayById(holidayID);
+        if (mCursor.moveToFirst()) {
+            do {
+                //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "gifts 7", "notes  8"
+                h = new HolidayEvent();
+                h.setHoliDayID(mCursor.getInt(0));
+                h.setEventDescription(mCursor.getString(3));
+                h.setDate(mCursor.getString(4));
+                h.setLocation(mCursor.getString(5));
+                h.setPhotos(mCursor.getString(6));
+                h.setGifts(mCursor.getString(7));
+                h.setNotes(mCursor.getString(8));
+
+                holidayEvents.add(h);
+
+            } while (mCursor.moveToNext());
+        }
+        holidayEventAdapter.close();
+
+        h = holidayEvents.get(0);
+
+        System.out.println(h.getEventDescription());
+
+        TextView notes = (TextView) this.findViewById(R.id.eventDescription);
+        TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
+        TextView location = (TextView) this.findViewById(R.id.location);
+        TextView photos = (TextView) this.findViewById(R.id.photos);
+        TextView gifts = (TextView) this.findViewById(R.id.gifts);
+
+        notes.setText(h.getNotes());
+        dateOfHoliday.setText(h.getDate());
+        location.setText(h.getLocation());
+        photos.setText(h.getPhotos());
+        gifts.setText(h.getGifts());
+    }
+
+    private String createDescription(String dateOfHoliday) {
+        return global.selectedBaby.getName() + " had a great " + type +
+                " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday);
+    }
+
+
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {

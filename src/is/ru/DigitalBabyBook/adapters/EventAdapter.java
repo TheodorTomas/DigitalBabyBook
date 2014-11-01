@@ -53,6 +53,23 @@ public class EventAdapter {
         return value;
     }
 
+    public long updateEvent(int eventId, int babyID, String description, String date, String photo, String type) {
+        String[] cols = DbHelper.TableEventCols;   //"babyID  1", "description  2", "date  3", "photo  4", "type 5"
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(cols[1], babyID);
+        contentValues.put(cols[2], description);
+        contentValues.put(cols[3], date);
+        contentValues.put(cols[4], photo);
+        contentValues.put(cols[5], type);
+
+        openToWrite();
+        long value = db.update(DbHelper.EventTable, contentValues,
+                cols[0] + "=" + eventId, null);
+        close();
+        return value;
+    }
+
 
     public Cursor queryEvent() {
         openToRead();

@@ -12,6 +12,7 @@ public class Event {
     private String photos;
     private String notes;
     private Baby baby;
+    private int eventID;
 
     public Event() {};
 
@@ -69,9 +70,13 @@ public class Event {
         return notes;
     }
 
+    public int getEventID() { return eventID; }
+
     public void setNotes(String notes) {
         this.notes = notes;
     }
 
-
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
 }

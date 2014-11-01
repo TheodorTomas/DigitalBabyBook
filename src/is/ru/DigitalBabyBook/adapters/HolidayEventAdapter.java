@@ -55,6 +55,26 @@ public class HolidayEventAdapter {
         return value;
     }
 
+    public long updateHoliday(int holidayId, int babyID, long eventID, String description, String date, String location, String photo, String gifts, String notes ) {
+        String[] cols = DbHelper.TableHolidayEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "gifts 7", "notes  8"
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(cols[1], babyID);
+        contentValues.put(cols[2], eventID);
+        contentValues.put(cols[3], description);
+        contentValues.put(cols[4], date);
+        contentValues.put(cols[5], location);
+        contentValues.put(cols[6], photo);
+        contentValues.put(cols[7], gifts);
+        contentValues.put(cols[8], notes);
+
+        openToWrite();
+        long value = db.update(DbHelper.HolidayEventTable, contentValues,
+                cols[0] + "=" + holidayId, null);
+        close();
+        return value;
+    }
+
     public Cursor queryHoliday() {
         openToRead();
         Cursor cursor = db.query(DbHelper.HolidayEventTable,
@@ -62,11 +82,27 @@ public class HolidayEventAdapter {
         return cursor;
     }
 
-    public Cursor queryHoliday(long babyId) {
+    public Cursor queryHolidayByBabyId(long babyId) {
         openToRead();
         String[] cols = DbHelper.TableHolidayEventCols;
         Cursor cursor = db.query(DbHelper.HolidayEventTable,
                 cols, cols[1] + "=" + babyId, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor queryHolidayById(long id) {
+        openToRead();
+        String[] cols = DbHelper.TableHolidayEventCols;
+        Cursor cursor = db.query(DbHelper.HolidayEventTable,
+                cols, cols[0] + "=" + id, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor queryHolidayByEventId(int eventID) {
+        openToRead();
+        String[] cols = DbHelper.TableHolidayEventCols;
+        Cursor cursor = db.query(DbHelper.HolidayEventTable,
+                cols, cols[2] + "=" + eventID, null, null, null, null);
         return cursor;
     }
 
