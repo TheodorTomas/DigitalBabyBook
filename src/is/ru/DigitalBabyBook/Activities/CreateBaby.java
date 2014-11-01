@@ -38,6 +38,7 @@ public class CreateBaby extends Activity {
     private int mYear;
     private int mMonth;
     private int mDay;
+    private boolean valid;
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -52,7 +53,7 @@ public class CreateBaby extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
         setContentView(R.layout.create_baby);
 
-
+        valid = false;
         dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
         pickDate = (ImageView) this.findViewById(R.id.datePicker);
 
@@ -125,44 +126,47 @@ public class CreateBaby extends Activity {
 
     public void addBaby(View view) {
 
-        Double weight, size;
+        if (valid) {
+            Double weight, size;
 
-        TextView babyName = (TextView) this.findViewById(R.id.babyName);
-        TextView dateOfBirth = (TextView) this.findViewById(R.id.dateDisplay);
-        TextView babyWeight = (TextView) this.findViewById(R.id.babyWeight);
-        TextView babySize = (TextView) this.findViewById(R.id.babySize);
-        TextView babyHairColor = (TextView) this.findViewById(R.id.babyHairColor);
-        TextView placeOfBirth = (TextView) this.findViewById(R.id.placeOfBirth);
+            TextView babyName = (TextView) this.findViewById(R.id.babyName);
+            TextView dateOfBirth = (TextView) this.findViewById(R.id.dateDisplay);
+            TextView babyWeight = (TextView) this.findViewById(R.id.babyWeight);
+            TextView babySize = (TextView) this.findViewById(R.id.babySize);
+            TextView babyHairColor = (TextView) this.findViewById(R.id.babyHairColor);
+            TextView placeOfBirth = (TextView) this.findViewById(R.id.placeOfBirth);
 
-        if (babyWeight.getText().toString().equals("")){
-            weight = 0.0;
+            if (babyWeight.getText().toString().equals("")) {
+                weight = 0.0;
+            } else {
+                weight = Double.parseDouble(babyWeight.getText().toString());
+            }
+            if (babySize.getText().toString().equals("")) {
+                size = 0.0;
+            } else {
+                size = Double.parseDouble(babySize.getText().toString());
+            }
+            baby.setName(babyName.getText().toString());
+            baby.setDateOfBirth(dateOfBirth.getText().toString());
+            baby.setWeight(weight);
+            baby.setSize(size);
+            baby.setHairColor(babyHairColor.getText().toString());
+            baby.setBirthLocation(placeOfBirth.getText().toString());
+
+            global.selectedBaby = baby; //set the baby to global (later save to db)
+
+            //(String name, String birthLocation, String gender, double size, double weight, String hairColor )
+            long l = mBA.insertBaby(babyName.getText().toString(), baby.getDateOfBirth(), baby.getBirthLocation(), baby.getGender(), baby.getSize(), baby.getWeight(), baby.getHairColor(), baby.getProfilePicture());
+            mBA.close();
+
+            Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
+            i.putExtra("babyId", l);
+
+            startActivity(i);
         }
         else {
-            weight = Double.parseDouble(babyWeight.getText().toString());
+            Toast.makeText(getApplicationContext(), "Please Insert Date", Toast.LENGTH_SHORT).show();
         }
-        if (babySize.getText().toString().equals("")) {
-            size = 0.0;
-        }
-        else{
-            size = Double.parseDouble(babySize.getText().toString());
-        }
-        baby.setName(babyName.getText().toString());
-        baby.setDateOfBirth(dateOfBirth.getText().toString());
-        baby.setWeight(weight);
-        baby.setSize(size);
-        baby.setHairColor(babyHairColor.getText().toString());
-        baby.setBirthLocation(placeOfBirth.getText().toString());
-
-        global.selectedBaby = baby; //set the baby to global (later save to db)
-
-        //(String name, String birthLocation, String gender, double size, double weight, String hairColor )
-        long l = mBA.insertBaby(babyName.getText().toString(),baby.getDateOfBirth(), baby.getBirthLocation(), baby.getGender(), baby.getSize(), baby.getWeight(), baby.getHairColor(), baby.getProfilePicture());
-        mBA.close();
-
-        Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
-        i.putExtra("babyId", l);
-
-        startActivity(i);
     }
 
     public void addPhoto(View view) {
@@ -236,6 +240,7 @@ public class CreateBaby extends Activity {
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
                     updateDisplay();
+                    valid = true;
                 }
     };
 }
