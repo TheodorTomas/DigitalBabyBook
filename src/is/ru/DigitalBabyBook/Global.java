@@ -67,6 +67,34 @@ public class Global {
         return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week;
     }
 
+
+    public boolean validateDateInput(String dateOfBirth, String selectedDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy", Locale.ENGLISH);
+
+        Date date = null;
+        Date now1 = null;
+        try {
+            date = dateFormat.parse(dateOfBirth);
+            if (selectedDate != null) {
+                now1 = dateFormat.parse(selectedDate);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        LocalDate birthdate = new LocalDate (date);
+        LocalDate now;
+        if (selectedDate != null) {
+            now = new LocalDate(now1);
+        } else {
+            now = new LocalDate();
+        }
+        if (birthdate.isBefore(now)) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean isPlural(int number) {
         return number <= 1;
     }

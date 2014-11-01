@@ -79,4 +79,12 @@ public class Event {
     public void setEventID(int eventID) {
         this.eventID = eventID;
     }
+
+    public void setBaby(Baby baby) {
+        this.baby = baby;
+    }
+
+    public Baby getBaby() {
+        return baby;
+    }
 }

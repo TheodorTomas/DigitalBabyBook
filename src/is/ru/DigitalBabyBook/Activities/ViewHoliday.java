@@ -3,9 +3,12 @@ package is.ru.DigitalBabyBook.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
@@ -83,6 +86,16 @@ public class ViewHoliday extends Activity {
 
         TextView eventNotes = (TextView) this.findViewById(R.id.event_notes);
         eventNotes.setText("Notes: " + holidayEvent.getNotes());
+
+        if (holidayEvent.getPhotos() != null) {
+            ImageView profileImage = (ImageView) this.findViewById(R.id.holiday_photo);
+            Bitmap d = new BitmapDrawable(this.getResources(), holidayEvent.getPhotos()).getBitmap();
+
+            int nh = (int) (d.getHeight() * (256.0 / d.getWidth()));
+            Bitmap scaled = Bitmap.createScaledBitmap(d, 256, nh, true);
+
+            profileImage.setImageBitmap(scaled);
+        }
 
     }
 
