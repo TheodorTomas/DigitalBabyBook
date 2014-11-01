@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.*;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.adapters.EventAdapter;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
-import is.ru.DigitalBabyBook.domain.HolidayEvent;
+import is.ru.DigitalBabyBook.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,8 @@ import java.util.Collections;
 public class BabyHomeFragment extends Fragment {
 
     private static Global global = Global.getInstance();
-    private HolidayEventAdapter mHEA;
+    private HolidayEventAdapter holiDayEventAdapter;
+    private EventAdapter eventAdapter;
     private Cursor mCursor;
 
     @Override
@@ -32,7 +34,8 @@ public class BabyHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View V = inflater.inflate(R.layout.baby_home_tab, container, false);
 
-        mHEA = new HolidayEventAdapter(V.getContext());
+        holiDayEventAdapter = new HolidayEventAdapter(V.getContext());
+        eventAdapter = new EventAdapter(V.getContext());
 
         TextView babyName = (TextView) V.findViewById(R.id.home_babyName);
         babyName.setText(global.selectedBaby.getName());
@@ -59,35 +62,32 @@ public class BabyHomeFragment extends Fragment {
     private void updateHolidayEventFeed(View v) {
         long babyId = global.selectedBaby.getId();
 
-        ArrayList<HolidayEvent> holidayEvents = new ArrayList<HolidayEvent>();
-        mCursor = mHEA.queryHoliday(babyId);
+        ArrayList<Event> events = new ArrayList<Event>();
+        mCursor = eventAdapter.queryEventByBabyID(babyId);
 
         if (mCursor.moveToFirst()) {
             do {
-                // "babyID 1", "type 2", "description 3", "date 4", "location 5", "photo 6", "gifts 7", "notes 8" };
-                HolidayEvent b = new HolidayEvent();
-                b.setType(mCursor.getString(2));
-                b.setEventDescription(mCursor.getString(3));
-                b.setDate(mCursor.getString(4));
-                b.setLocation(mCursor.getString(5));
-                b.setPhotos(mCursor.getString(6));
-                b.setGifts(mCursor.getString(7));
-                b.setNotes(mCursor.getString(8));
+                //"babyID  1", "description  2", "date  3", "photo  4", "type 5"
+                Event e = new Event();
+                e.setEventDescription(mCursor.getString(2));
+                e.setDate(mCursor.getString(3));
+                e.setPhotos(mCursor.getString(4));
+                e.setType(mCursor.getString(5));
 
-                holidayEvents.add(b);
+                events.add(e);
 
             } while (mCursor.moveToNext());
         }
 
-        mHEA.close();
-        Collections.reverse(holidayEvents);
+        eventAdapter.close();
+        Collections.reverse(events);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.home_eventFeed);
         //LinearLayout linearLayout = new LinearLayout(v.getContext());
         ListView listView = new ListView(v.getContext());
         ArrayList<String> values = new ArrayList<String>();
 
-        for (HolidayEvent holidayEvent : holidayEvents) {
-            values.add(holidayEvent.getEventDescription());
+        for (Event event : events) {
+            values.add(event.getEventDescription());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), R.layout.event_home_feed_list, values);
 

@@ -35,13 +35,13 @@ public class HolidayEventAdapter {
         db.close();
     }
 
-    public long insertHoliday(int babyID, String type, String description, String date, String location, String photo, String gifts, String notes ) {
+    public long insertHoliday(int babyID, long eventID, String description, String date, String location, String photo, String gifts, String notes ) {
 
-        String[] cols = DbHelper.TableHolidayEventCols; // "babyID 1", "type 2", "description 3", "date 4", "location 5", "photo 6", "gifts 7", "notes 8" };
+        String[] cols = DbHelper.TableHolidayEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "gifts 7", "notes  8"
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(cols[1], babyID);
-        contentValues.put(cols[2], type);
+        contentValues.put(cols[2], eventID);
         contentValues.put(cols[3], description);
         contentValues.put(cols[4], date);
         contentValues.put(cols[5], location);

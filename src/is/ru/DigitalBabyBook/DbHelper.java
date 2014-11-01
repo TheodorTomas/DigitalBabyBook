@@ -16,22 +16,33 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String[] TableBabyCols = {"_id", "name", "dateOfBirth", "birthLocation", "gender", "size", "weight", "hairColor", "profilePicture"};
 
     public static final String HolidayEventTable = "holidayEvents";
-    public static final String[] TableHolidayEventCols = {"_id", "babyID", "type", "description", "date", "location", "photo", "gifts", "notes" };
+    public static final String[] TableHolidayEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo", "gifts", "notes" };
 
-    public static final String EventDescriptionTable = "eventDescriptions";
-    public static final String[] TableEventDescriptionCols = { "_id", " eventID", "description" };
+    public static final String EventTable = "events";
+    public static final String[] TableEventCols = { "_id", "babyID", "description", "date", "photo", "type" };
+
+    private static final String sqlCreateTableEvent = "CREATE TABLE events(" +
+            " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            " babyID INT NOT NULL, " +
+            " description TEXT NOT NULL, " +
+            " date DATE NOT NULL, " +
+            " photo TEXT NULL, " +
+            " type TEXT NULL, " +
+            " FOREIGN KEY(babyID) REFERENCES babies(_id) " +
+            ");";
 
     private static final String sqlCreateTableHolidayEvents = "CREATE TABLE holidayEvents(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
             " babyID INTEGER NOT NULL," +
-            " type TEXT NOT NULL," +
+            " eventID INTEGER NOT NULL, " +
             " description TEXT NOT NULL, " +
             " date DATE NOT NULL," +
             " location TEXT NULL, " +
             " photo TEXT NULL, " +
             " gifts TEXT NULL, " +
             " notes TEXT NULL, " +
-            " FOREIGN KEY(babyID) REFERENCES babies(_id)" +
+            " FOREIGN KEY(babyID) REFERENCES babies(_id), " +
+            " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";
 
     private static final String sqlCreateTableBabies = "CREATE TABLE babies(" +
@@ -46,13 +57,8 @@ public class DbHelper extends SQLiteOpenHelper {
             " profilePicture TEXT NULL " +
             ");";
 
-    private static final String sqlCreateTableEventDescriptions = "CREATE TABLE eventDescriptions(" +
-            " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            " eventID INTEGER NOT NULL, " +
-            " description TEXT NOT NULL, " +
-            " FOREIGN KEY(eventID) REFERENCES holidayEvents(_id)" +
-            ");";
-
+    private static final String sqlDropTableEvents =
+            "DROP TABLE IF EXISTS events";
 
     private static final String sqlDropTableBabies =
             "DROP TABLE IF EXISTS babies";
@@ -68,13 +74,15 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(sqlCreateTableBabies);
+        db.execSQL(sqlCreateTableEvent);
         db.execSQL(sqlCreateTableHolidayEvents);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(sqlDropTableBabies);
         db.execSQL(sqlDropTableHolidayEvents);
+        db.execSQL(sqlDropTableEvents);
+        db.execSQL(sqlDropTableBabies);
         onCreate(db);
     }
 }

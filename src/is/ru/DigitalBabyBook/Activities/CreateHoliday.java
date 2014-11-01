@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.adapters.EventAdapter;
 import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
 import is.ru.DigitalBabyBook.domain.HolidayEvent;
 
@@ -27,7 +28,8 @@ public class CreateHoliday extends Activity {
 
     private HolidayEvent event;
     private Global global = Global.getInstance();
-    private HolidayEventAdapter mHEA = new HolidayEventAdapter(this);
+    private HolidayEventAdapter holidayEventAdapter = new HolidayEventAdapter(this);
+    private EventAdapter eventAdapter = new EventAdapter(this);
 
     private ImageView pickDate;
     private TextView dateDisplay;
@@ -108,17 +110,27 @@ public class CreateHoliday extends Activity {
                 global.selectedBaby
         );
 
-        //add to db
-        long l = mHEA.insertHoliday(
+        //add to eventDatabase
+        long eventID = eventAdapter.insertEvent(
                 global.selectedBaby.getId(),
-                event.getType(),
+                tempDescription,
+                event.getDate(),
+                event.getPhotos(),
+                event.getType());
+        eventAdapter.close();
+
+
+        //add to db
+        long l = holidayEventAdapter.insertHoliday(
+                global.selectedBaby.getId(),
+                eventID,
                 event.getEventDescription(),
                 event.getDate(),
                 event.getLocation(),
                 event.getPhotos(),
                 event.getGifts(),
                 event.getNotes());
-        mHEA.close();
+        holidayEventAdapter.close();
 
         Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
         i.putExtra("babyId", global.selectedBaby.getId());
