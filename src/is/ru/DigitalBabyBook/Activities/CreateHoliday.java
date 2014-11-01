@@ -9,10 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.EventAdapter;
@@ -44,6 +41,7 @@ public class CreateHoliday extends Activity {
     private int holidayID;
     private int eventId;
     private String tempDescription;
+    private boolean valid;
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -61,6 +59,7 @@ public class CreateHoliday extends Activity {
         holidayID = extras.getInt("holidayId");
         eventId = extras.getInt("eventId");
 
+        valid = false;
         dateDisplay = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         pickDate = (ImageView) this.findViewById(R.id.holiday_datePicker);
 
@@ -104,24 +103,25 @@ public class CreateHoliday extends Activity {
     }
     public void addHoliday(View view) {
         // store group, type and additional input
-        TextView notes = (TextView) this.findViewById(R.id.eventDescription);
-        TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
-        TextView location = (TextView) this.findViewById(R.id.location);
-        TextView photos = (TextView) this.findViewById(R.id.photos);
-        TextView gifts = (TextView) this.findViewById(R.id.gifts);
+        if (valid) {
+            TextView notes = (TextView) this.findViewById(R.id.eventDescription);
+            TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
+            TextView location = (TextView) this.findViewById(R.id.location);
+            TextView photos = (TextView) this.findViewById(R.id.photos);
+            TextView gifts = (TextView) this.findViewById(R.id.gifts);
 
        tempDescription = createDescription(dateOfHoliday.getText().toString());
 
-        event = new HolidayEvent(
-                type,
-                tempDescription,
-                dateOfHoliday.getText().toString(),
-                location.getText().toString(),
-                photos.getText().toString(),
-                gifts.getText().toString(),
-                notes.getText().toString(),
-                global.selectedBaby
-        );
+            event = new HolidayEvent(
+                    type,
+                    tempDescription,
+                    dateOfHoliday.getText().toString(),
+                    location.getText().toString(),
+                    photos.getText().toString(),
+                    gifts.getText().toString(),
+                    notes.getText().toString(),
+                    global.selectedBaby
+            );
 
         if (edit) {
             //edit event
@@ -179,8 +179,11 @@ public class CreateHoliday extends Activity {
         Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
         i.putExtra("babyId", global.selectedBaby.getId());
 
-        startActivity(i);
-
+            startActivity(i);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Please Insert Date", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -262,6 +265,7 @@ public class CreateHoliday extends Activity {
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
                     updateDisplay();
+                    valid = true;
                 }
             };
 

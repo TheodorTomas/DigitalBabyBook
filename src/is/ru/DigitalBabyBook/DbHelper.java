@@ -18,6 +18,12 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String HolidayEventTable = "holidayEvents";
     public static final String[] TableHolidayEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo", "gifts", "notes" };
 
+    public static final String FirstEventTable = "firstEvents";
+    public static final String[] TableFirstEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo", "witness"};
+
+    public static final String FavoriteEventTable = "firstEvents";
+    public static final String[] TableFavoriteEventCols = {"_id", "babyID", "eventID", "description", "photo"};
+
     public static final String EventTable = "events";
     public static final String[] TableEventCols = { "_id", "babyID", "description", "date", "photo", "type" };
 
