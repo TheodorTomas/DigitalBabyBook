@@ -110,7 +110,7 @@ public class CreateHoliday extends Activity {
             TextView photos = (TextView) this.findViewById(R.id.photos);
             TextView gifts = (TextView) this.findViewById(R.id.gifts);
 
-       tempDescription = createDescription(dateOfHoliday.getText().toString());
+            tempDescription = createDescription(dateOfHoliday.getText().toString());
 
             event = new HolidayEvent(
                     type,
@@ -123,61 +123,61 @@ public class CreateHoliday extends Activity {
                     global.selectedBaby
             );
 
-        if (edit) {
-            //edit event
-            System.out.println("edit the event");
-            System.out.println("Event id " + eventId );
-            System.out.println("Holiday id " + holidayID);
-            long updateEventId = eventAdapter.updateEvent(
-                    eventId,
-                    global.selectedBaby.getId(),
-                    event.getEventDescription(),
-                    event.getDate(),
-                    event.getPhotos(),
-                    event.getType());
-            eventAdapter.close();
+            if (edit) {
+                //edit event
+                System.out.println("edit the event");
+                System.out.println("Event id " + eventId );
+                System.out.println("Holiday id " + holidayID);
+                long updateEventId = eventAdapter.updateEvent(
+                        eventId,
+                        global.selectedBaby.getId(),
+                        event.getEventDescription(),
+                        event.getDate(),
+                        event.getPhotos(),
+                        event.getType());
+                eventAdapter.close();
 
-            long updateHolidayId = holidayEventAdapter.updateHoliday(
-                    holidayID,
-                    global.selectedBaby.getId(),
-                    eventId,
-                    event.getEventDescription(),
-                    event.getDate(),
-                    event.getLocation(),
-                    event.getPhotos(),
-                    event.getGifts(),
-                    event.getNotes());
-            holidayEventAdapter.close();
+                long updateHolidayId = holidayEventAdapter.updateHoliday(
+                        holidayID,
+                        global.selectedBaby.getId(),
+                        eventId,
+                        event.getEventDescription(),
+                        event.getDate(),
+                        event.getLocation(),
+                        event.getPhotos(),
+                        event.getGifts(),
+                        event.getNotes());
+                holidayEventAdapter.close();
 
-            System.out.println("update event ID " + updateEventId );
-            System.out.println("update holiday ID " + updateHolidayId);
-        } else {
-            //add to eventDatabase
-            long eventID = eventAdapter.insertEvent(
-                    global.selectedBaby.getId(),
-                    tempDescription,
-                    event.getDate(),
-                    event.getPhotos(),
-                    event.getType());
-            eventAdapter.close();
-
-
-            //add to db
-            long l = holidayEventAdapter.insertHoliday(
-                    global.selectedBaby.getId(),
-                    eventID,
-                    event.getEventDescription(),
-                    event.getDate(),
-                    event.getLocation(),
-                    event.getPhotos(),
-                    event.getGifts(),
-                    event.getNotes());
-            holidayEventAdapter.close();
-        }
+                System.out.println("update event ID " + updateEventId );
+                System.out.println("update holiday ID " + updateHolidayId);
+            } else {
+                //add to eventDatabase
+                long eventID = eventAdapter.insertEvent(
+                        global.selectedBaby.getId(),
+                        tempDescription,
+                        event.getDate(),
+                        event.getPhotos(),
+                        event.getType());
+                eventAdapter.close();
 
 
-        Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
-        i.putExtra("babyId", global.selectedBaby.getId());
+                //add to db
+                long l = holidayEventAdapter.insertHoliday(
+                        global.selectedBaby.getId(),
+                        eventID,
+                        event.getEventDescription(),
+                        event.getDate(),
+                        event.getLocation(),
+                        event.getPhotos(),
+                        event.getGifts(),
+                        event.getNotes());
+                holidayEventAdapter.close();
+            }
+
+
+            Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
+            i.putExtra("babyId", global.selectedBaby.getId());
 
             startActivity(i);
         }
