@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +31,8 @@ public class CreateFirst extends Activity {
     private int mYear;
     private int mMonth;
     private int mDay;
+    private String group;
+    private String type;
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -37,6 +41,11 @@ public class CreateFirst extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
         setContentView(R.layout.add_first);
+
+        Bundle extras = getIntent().getExtras();
+
+        group = extras.getString("group");
+        type = extras.getString("type");
 
         dateDisplay = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         pickDate = (ImageView) this.findViewById(R.id.holiday_datePicker);
@@ -48,11 +57,35 @@ public class CreateFirst extends Activity {
             }
         });
 
+        dateDisplay.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
         updateDisplay();
+//
+//        TextView holidayType = (TextView) this.findViewById(R.id.holidayType);
+//        Button addFirst = (Button) this.findViewById(R.id.addHoliday);
+//        holidayType.setText(type);
+//        addFirst.setText("Add " + type);
+
+//        if (global.selectedBaby.getGender().equals("boy")){
+//            holidayType.setBackgroundColor(Color.rgb(51, 181, 229));
+//            addFirst.setBackground(getResources().getDrawable(R.drawable.boybtnholiday));
+//        }
+//        else {
+//            holidayType.setBackgroundColor(Color.rgb(246, 96, 171));
+//            addFirst.setBackground(getResources().getDrawable(R.drawable.girlbtnholiday));
+//        }
+//        dateDisplay.setText("Date");
+//        dateDisplay.setTextColor(Color.rgb(173, 173, 173));
 
     }
     public void addFirst(View view) {
@@ -61,7 +94,7 @@ public class CreateFirst extends Activity {
         TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         TextView location = (TextView) this.findViewById(R.id.location);
         TextView photos = (TextView) this.findViewById(R.id.photos);
-        TextView gifts = (TextView) this.findViewById(R.id.gifts);
+        TextView witness = (TextView) this.findViewById(R.id.witness);
 
         Bundle extras = getIntent().getExtras();
 

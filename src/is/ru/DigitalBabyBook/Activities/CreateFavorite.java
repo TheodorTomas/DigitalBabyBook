@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.domain.Favorite;
 import is.ru.DigitalBabyBook.domain.First;
 
 import java.util.Calendar;
@@ -20,7 +21,7 @@ import java.util.Calendar;
  * Created by Tommz on 20.10.2014.
  */
 public class CreateFavorite extends Activity {
-    private First event;
+    private Favorite event;
     private Global global = Global.getInstance();
 
     private ImageView pickDate;

@@ -9,16 +9,17 @@ public class First {
     private String Date;
     private String location;
     private String witness;
+    private String photos;
 
-    public First(String type, String date, String location, String witness, String photo) {
+    public First(String type, String date, String location, String witness, String photos) {
         this.type = type;
         Date = date;
         this.location = location;
         this.witness = witness;
-        this.photo = photo;
+        this.photos = photos;
     }
 
-    private String photo;
+
 
 
 
@@ -55,11 +56,11 @@ public class First {
     }
 
     public String getPhoto() {
-        return photo;
+        return photos;
     }
 
     public void setPhoto(String photo) {
-        this.photo = photo;
+        this.photos = photo;
     }
 
 }

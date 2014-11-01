@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Add Holiday"
+            android:text="Add First"
             android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
     <EditText
             android:layout_width="match_parent"
@@ -53,11 +53,11 @@
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/gifts" android:layout_gravity="center_horizontal" android:text="Gifts"/>
+            android:id="@+id/witness" android:layout_gravity="center_horizontal" android:text="Witness"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Holiday"
+            android:text="Add First"
             android:id="@+id/addHoliday" android:layout_gravity="center_horizontal" android:clickable="true"
-            android:onClick="addHoliday"/>
+            android:onClick="addFirst"/>
 </LinearLayout>
