@@ -1,63 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" android:weightSum="1">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Add First"
-            android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventDescription" android:text="Event description"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Date"/>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
+<ScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:weightSum="1"
+                  android:paddingLeft="30dp"
+                  android:paddingRight="30dp">
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/holiday_dateDisplay"
-                android:text=""
-                android:layout_weight="1.00"
-                android:layout_gravity="center_horizontal"/>
-        <ImageView
+                android:text="Add First"
+                android:id="@+id/holidayType"
+                android:textStyle="bold"
+                android:textColor="#ffffffff"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="100dp"
+                      android:orientation="horizontal"
+                      android:layout_marginBottom="20dp">
+            <ImageView android:layout_width="100dp"
+                       android:layout_height="match_parent"
+                       android:src="@drawable/ic_action_new_picture"
+                       android:clickable="true"
+                       android:onClick="addPhoto"
+                       android:id="@+id/add_holiday_photo"
+                       android:paddingRight="10dp"
+                       android:paddingLeft="10dp"
+                       android:layout_marginRight="5dp"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:orientation="vertical"
+                          android:paddingTop="20dp"
+                          android:layout_marginBottom="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add photo"
+                        android:id="@+id/add_holiday_photo_text"
+                        android:ems="10"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginBottom="20dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/holiday_dateDisplay"
+                    android:layout_weight="1.00"
+                    android:clickable="true"
+                    android:textSize="19dp"
+                    android:layout_gravity="center_horizontal"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_action_go_to_today"
+                    android:id="@+id/holiday_datePicker"
+                    android:clickable="true"
+                    android:padding="18dp"
+                    android:layout_gravity="right"/>
+        </LinearLayout>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/location"
+                android:hint="Location"
+                android:layout_marginBottom="20dp"/>
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Witness"
+                android:hint="Witness"
+                android:maxLines="5"
+                android:layout_marginBottom="20dp"/>
+        <Button
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/ic_action_go_to_today"
-                android:id="@+id/holiday_datePicker"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:id="@+id/addFirst"
+                android:layout_gravity="center_horizontal"
                 android:clickable="true"
-                android:padding="18dp"
-                android:layout_gravity="right"/>
+                android:textColor="#ffffffff"
+                android:onClick="addHoliday"/>
     </LinearLayout>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/location" android:text="Location"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/photos" android:layout_gravity="center_horizontal" android:text="Photos"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/witness" android:layout_gravity="center_horizontal" android:text="Witness"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add First"
-            android:id="@+id/addHoliday" android:layout_gravity="center_horizontal" android:clickable="true"
-            android:onClick="addFirst"/>
-</LinearLayout>
+</ScrollView>

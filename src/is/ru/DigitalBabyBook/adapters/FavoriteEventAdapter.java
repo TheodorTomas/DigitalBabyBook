@@ -49,15 +49,29 @@ public class FavoriteEventAdapter {
         close();
         return value;
     }
+    public long updateFirst(int favoriteId, int babyID, long eventID, String description, String photo ) {
+        String[] cols = DbHelper.TableFavoriteEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "gifts 7", "notes  8"
+        ContentValues contentValues = new ContentValues();
 
-    public Cursor queryFirst() {
+        contentValues.put(cols[1], babyID);
+        contentValues.put(cols[2], eventID);
+        contentValues.put(cols[3], description);
+        contentValues.put(cols[4], photo);
+
+        openToWrite();
+        long value = db.update(DbHelper.FavoriteEventTable, contentValues,
+                cols[0] + "=" + favoriteId, null);
+        close();
+        return value;
+    }
+    public Cursor queryFavorite() {
         openToRead();
         Cursor cursor = db.query(DbHelper.FavoriteEventTable,
                 DbHelper.TableFavoriteEventCols, null, null, null, null, null);
         return cursor;
     }
 
-    public Cursor queryFirst(long babyId) {
+    public Cursor queryFavorite(long babyId) {
         openToRead();
         String[] cols = DbHelper.TableFavoriteEventCols;
         Cursor cursor = db.query(DbHelper.FavoriteEventTable,
@@ -66,7 +80,7 @@ public class FavoriteEventAdapter {
     }
 
     public void deleteAll() {
-        Cursor cursor = queryFirst();
+        Cursor cursor = queryFavorite();
         long rowId = cursor.getColumnIndexOrThrow("_id");
 
         if (cursor.moveToFirst()) {

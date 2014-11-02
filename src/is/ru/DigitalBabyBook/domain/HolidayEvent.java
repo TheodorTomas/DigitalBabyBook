@@ -6,7 +6,6 @@ package is.ru.DigitalBabyBook.domain;
 public class HolidayEvent extends Event { //and christmas ??
 
     public String gifts;
-    public Baby baby;
     private int holiDayID;
 
     public HolidayEvent() {};

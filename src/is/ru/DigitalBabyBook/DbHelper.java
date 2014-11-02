@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String FirstEventTable = "firstEvents";
     public static final String[] TableFirstEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo", "witness"};
 
-    public static final String FavoriteEventTable = "firstEvents";
+    public static final String FavoriteEventTable = "favoriteEvents";
     public static final String[] TableFavoriteEventCols = {"_id", "babyID", "eventID", "description", "photo"};
 
     public static final String EventTable = "events";
@@ -35,6 +35,20 @@ public class DbHelper extends SQLiteOpenHelper {
             " photo TEXT NULL, " +
             " type TEXT NULL, " +
             " FOREIGN KEY(babyID) REFERENCES babies(_id) " +
+            ");";
+
+
+
+    private static final String sqlCreateTableBabies = "CREATE TABLE babies(" +
+            " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            " name TEXT NOT NULL," +
+            " dateOfBirth DATE NOT NULL," +
+            " birthLocation TEXT, " +
+            " gender TEXT NOT NULL, " +
+            " size DOUBLE NULL, " +
+            " weight DOUBLE NULL, " +
+            " hairColor TEXT NULL, " +
+            " profilePicture TEXT NULL " +
             ");";
 
     private static final String sqlCreateTableHolidayEvents = "CREATE TABLE holidayEvents(" +
@@ -51,16 +65,27 @@ public class DbHelper extends SQLiteOpenHelper {
             " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";
 
-    private static final String sqlCreateTableBabies = "CREATE TABLE babies(" +
+    private static final String sqlCreateTableFirstEvents = "CREATE TABLE firstEvents(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            " name TEXT NOT NULL," +
-            " dateOfBirth DATE NOT NULL," +
-            " birthLocation TEXT, " +
-            " gender TEXT NOT NULL, " +
-            " size DOUBLE NULL, " +
-            " weight DOUBLE NULL, " +
-            " hairColor TEXT NULL, " +
-            " profilePicture TEXT NULL " +
+            " babyID INTEGER NOT NULL," +
+            " eventID INTEGER NOT NULL, " +
+            " description TEXT NOT NULL, " +
+            " date DATE NOT NULL," +
+            " location TEXT NULL, " +
+            " photo TEXT NULL, " +
+            " witness TEXT NULL, " +
+            " FOREIGN KEY(babyID) REFERENCES babies(_id), " +
+            " FOREIGN KEY(eventID) REFERENCES events(_id) " +
+            ");";
+
+    private static final String sqlCreateTableFavoriteEvents = "CREATE TABLE favoriteEvents(" +
+            " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            " babyID INTEGER NOT NULL," +
+            " eventID INTEGER NOT NULL, " +
+            " description TEXT NOT NULL, " +
+            " photo TEXT NULL, " +
+            " FOREIGN KEY(babyID) REFERENCES babies(_id), " +
+            " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";
 
     private static final String sqlDropTableEvents =
@@ -72,6 +97,12 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String sqlDropTableHolidayEvents =
             "DROP TABLE IF EXISTS holidayEvents";
 
+    private static final String sqlDropTableFirstEvents =
+            "DROP TABLE IF EXISTS firstEvents";
+
+    private static final String sqlDropTableFavoriteEvents =
+            "DROP TABLE IF EXISTS favoriteEvents";
+
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -82,11 +113,15 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(sqlCreateTableBabies);
         db.execSQL(sqlCreateTableEvent);
         db.execSQL(sqlCreateTableHolidayEvents);
+        db.execSQL(sqlCreateTableFirstEvents);
+        db.execSQL(sqlCreateTableFavoriteEvents);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(sqlDropTableHolidayEvents);
+        db.execSQL(sqlDropTableFirstEvents);
+        db.execSQL(sqlDropTableFavoriteEvents);
         db.execSQL(sqlDropTableEvents);
         db.execSQL(sqlDropTableBabies);
         onCreate(db);

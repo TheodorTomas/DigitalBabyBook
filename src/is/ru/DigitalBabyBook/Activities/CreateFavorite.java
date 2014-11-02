@@ -13,7 +13,6 @@ import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.domain.Favorite;
-import is.ru.DigitalBabyBook.domain.First;
 
 import java.util.Calendar;
 
@@ -60,7 +59,7 @@ public class CreateFavorite extends Activity {
         TextView notes = (TextView) this.findViewById(R.id.eventDescription);
         TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         TextView location = (TextView) this.findViewById(R.id.location);
-        TextView photos = (TextView) this.findViewById(R.id.photos);
+        //TextView photos = (TextView) this.findViewById(R.id.photos);
         TextView gifts = (TextView) this.findViewById(R.id.gifts);
 
         Bundle extras = getIntent().getExtras();

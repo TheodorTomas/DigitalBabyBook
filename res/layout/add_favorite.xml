@@ -50,6 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Favorite"
-            android:id="@+id/addHoliday" android:layout_gravity="center_horizontal" android:clickable="true"
+            android:id="@+id/addFavorite" android:layout_gravity="center_horizontal" android:clickable="true"
             android:onClick="addFavorite"/>
 </LinearLayout>
