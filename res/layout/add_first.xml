@@ -97,6 +97,6 @@
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 android:textColor="#ffffffff"
-                android:onClick="addHoliday"/>
+                android:onClick="addFirst"/>
     </LinearLayout>
 </ScrollView>
