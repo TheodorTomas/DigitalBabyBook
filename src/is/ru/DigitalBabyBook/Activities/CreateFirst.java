@@ -111,6 +111,7 @@ public class CreateFirst extends Activity {
         if (valid) {
             TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
             TextView location = (TextView) this.findViewById(R.id.location);
+            TextView notes = (TextView) this.findViewById(R.id.eventDescription);
             TextView witness = (TextView) this.findViewById(R.id.Witness);
 
 
@@ -120,6 +121,7 @@ public class CreateFirst extends Activity {
             event.setEventDescription(tempDescription);
             event.setDate(dateOfHoliday.getText().toString());
             event.setLocation(location.getText().toString());
+            event.setNotes(notes.getText().toString());
             event.setWitness(witness.getText().toString());
             event.setBaby(global.selectedBaby);
 
@@ -145,6 +147,7 @@ public class CreateFirst extends Activity {
                         event.getDate(),
                         event.getLocation(),
                         event.getPhotos(),
+                        event.getNotes(),
                         event.getWitness());
                 firstEventAdapter.close();
 
@@ -169,6 +172,7 @@ public class CreateFirst extends Activity {
                         event.getDate(),
                         event.getLocation(),
                         event.getPhotos(),
+                        event.getNotes(),
                         event.getWitness());
                 firstEventAdapter.close();
             }
@@ -239,14 +243,15 @@ public class CreateFirst extends Activity {
         Cursor mCursor = firstEventAdapter.queryFirstById(firstID);
         if (mCursor.moveToFirst()) {
             do {
-                //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "gifts 7", "witness  8"
+                //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "notes 7", "witness  8"
                 h = new FirstEvent();
                 h.setFirstID(mCursor.getInt(0));
                 h.setEventDescription(mCursor.getString(3));
                 h.setDate(mCursor.getString(4));
                 h.setLocation(mCursor.getString(5));
-                h.setPhotos(mCursor.getString(6));;
-                h.setWitness(mCursor.getString(7));
+                h.setPhotos(mCursor.getString(6));
+                h.setNotes(mCursor.getString(7));
+                h.setWitness(mCursor.getString(8));
 
                 firstEvents.add(h);
 
@@ -258,10 +263,12 @@ public class CreateFirst extends Activity {
 
         System.out.println(h.getEventDescription());
 
+        TextView notes = (TextView) this.findViewById(R.id.eventDescription);
         TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
         TextView location = (TextView) this.findViewById(R.id.location);
         TextView witness = (TextView) this.findViewById(R.id.Witness);
 
+        notes.setText(h.getNotes());
         dateOfHoliday.setText(h.getDate());
         location.setText(h.getLocation());
         witness.setText(h.getWitness());

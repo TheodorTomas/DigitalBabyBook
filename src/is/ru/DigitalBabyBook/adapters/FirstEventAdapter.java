@@ -36,9 +36,9 @@ public class FirstEventAdapter {
         db.close();
     }
 
-    public long insertFirst(int babyID, long eventID, String description, String date, String location, String photo, String witness) {
+    public long insertFirst(int babyID, long eventID, String description, String date, String location, String photo,String notes, String witness) {
 
-        String[] cols = DbHelper.TableFirstEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "witness 7"
+        String[] cols = DbHelper.TableFirstEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6","notes 7" "witness 8"
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(cols[1], babyID);
@@ -47,15 +47,16 @@ public class FirstEventAdapter {
         contentValues.put(cols[4], date);
         contentValues.put(cols[5], location);
         contentValues.put(cols[6], photo);
-        contentValues.put(cols[7], witness);
+        contentValues.put(cols[7], notes);
+        contentValues.put(cols[8], witness);
 
         openToWrite();
         long value = db.insert(DbHelper.FirstEventTable, null, contentValues);
         close();
         return value;
     }
-    public long updateFirst(int firstId, int babyID, long eventID, String description, String date, String location, String photo, String witness ) {
-        String[] cols = DbHelper.TableFirstEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "gifts 7", "notes  8"
+    public long updateFirst(int firstId, int babyID, long eventID, String description, String date, String location, String photo,String notes, String witness ) {
+        String[] cols = DbHelper.TableFirstEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4", "location 5", "photo 6", "notes 7", "witness  8"
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(cols[1], babyID);
@@ -64,7 +65,8 @@ public class FirstEventAdapter {
         contentValues.put(cols[4], date);
         contentValues.put(cols[5], location);
         contentValues.put(cols[6], photo);
-        contentValues.put(cols[7], witness);
+        contentValues.put(cols[7], notes);
+        contentValues.put(cols[8], witness);
 
         openToWrite();
         long value = db.update(DbHelper.FirstEventTable, contentValues,

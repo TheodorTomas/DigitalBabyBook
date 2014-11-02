@@ -16,7 +16,7 @@ public class FirstEvent extends Event {
 
     ;
 
-    public FirstEvent(String type, String eventDescription, String date, String location, String photos, String notes, String witness, Baby baby) {
+    public FirstEvent(String type, String eventDescription, String date, String location, String photos,   String notes, String witness, Baby baby) {
         super(type, eventDescription, date, location, photos, notes, baby);
         this.witness = witness;
     }

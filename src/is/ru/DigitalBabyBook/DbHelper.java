@@ -19,10 +19,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String[] TableHolidayEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo", "gifts", "notes" };
 
     public static final String FirstEventTable = "firstEvents";
-    public static final String[] TableFirstEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo", "witness"};
+    public static final String[] TableFirstEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo",  "notes", "witness"};
 
     public static final String FavoriteEventTable = "favoriteEvents";
-    public static final String[] TableFavoriteEventCols = {"_id", "babyID", "eventID", "description", "photo"};
+    public static final String[] TableFavoriteEventCols = {"_id", "babyID", "eventID", "description", "photo", "notes"};
 
     public static final String EventTable = "events";
     public static final String[] TableEventCols = { "_id", "babyID", "description", "date", "photo", "type" };
@@ -73,6 +73,7 @@ public class DbHelper extends SQLiteOpenHelper {
             " date DATE NOT NULL," +
             " location TEXT NULL, " +
             " photo TEXT NULL, " +
+            " notes TEXT NULL, " +
             " witness TEXT NULL, " +
             " FOREIGN KEY(babyID) REFERENCES babies(_id), " +
             " FOREIGN KEY(eventID) REFERENCES events(_id) " +
@@ -84,6 +85,7 @@ public class DbHelper extends SQLiteOpenHelper {
             " eventID INTEGER NOT NULL, " +
             " description TEXT NOT NULL, " +
             " photo TEXT NULL, " +
+            " notes TEXT NULL, " +
             " FOREIGN KEY(babyID) REFERENCES babies(_id), " +
             " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";
