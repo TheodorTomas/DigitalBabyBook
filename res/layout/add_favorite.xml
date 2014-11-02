@@ -23,6 +23,16 @@
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"/>
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:src="@drawable/ic_action_new_picture"
+                   android:clickable="true"
+                   android:onClick="addPhoto"
+                   android:id="@+id/add_holiday_photo"
+                   android:paddingRight="10dp"
+                   android:paddingLeft="10dp"
+                   android:layout_marginBottom="20dp"
+                   android:layout_gravity="center_horizontal"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,22 +65,16 @@
                 android:id="@+id/eventDescription"
                 android:hint="Notes"
                 android:layout_marginBottom="20dp"/>
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/gifts"
-                android:layout_gravity="center_horizontal"
-                android:hint="Gifts"
-                android:layout_marginBottom="20dp"/>
+
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
                 android:id="@+id/addFavorite"
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 android:textColor="#ffffffff"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold"
                 android:onClick="addFavorite"/>
     </LinearLayout>
 </ScrollView>
