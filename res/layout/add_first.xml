@@ -23,33 +23,17 @@
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"/>
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      android:orientation="horizontal"
-                      android:layout_marginBottom="20dp">
-            <ImageView android:layout_width="100dp"
-                       android:layout_height="match_parent"
-                       android:src="@drawable/ic_action_new_picture"
-                       android:clickable="true"
-                       android:onClick="addPhoto"
-                       android:id="@+id/add_holiday_photo"
-                       android:paddingRight="10dp"
-                       android:paddingLeft="10dp"
-                       android:layout_marginRight="5dp"/>
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical"
-                          android:paddingTop="20dp"
-                          android:layout_marginBottom="10dp">
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:src="@drawable/ic_action_new_picture"
+                   android:clickable="true"
+                   android:onClick="addPhoto"
+                   android:id="@+id/add_holiday_photo"
+                   android:paddingRight="10dp"
+                   android:paddingLeft="10dp"
+                   android:layout_marginBottom="20dp"
+                   android:layout_gravity="center_horizontal"/>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Add photo"
-                        android:id="@+id/add_holiday_photo_text"
-                        android:ems="10"/>
-            </LinearLayout>
-        </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,6 +47,8 @@
                     android:id="@+id/holiday_dateDisplay"
                     android:layout_weight="1.00"
                     android:clickable="true"
+                    android:hint="Date"
+                    android:paddingLeft="5dp"
                     android:textSize="19dp"
                     android:layout_gravity="center_horizontal"/>
             <ImageView

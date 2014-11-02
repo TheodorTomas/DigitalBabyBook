@@ -61,8 +61,10 @@
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:id="@+id/dateDisplay"
+                    android:hint="Date"
                     android:textSize="19dp"
                     android:layout_weight="1.00"
+                    android:paddingLeft="5dp"
                     android:clickable="true"
                     android:layout_gravity="center_horizontal"/>
             <ImageView
