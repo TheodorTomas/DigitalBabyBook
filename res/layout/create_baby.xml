@@ -138,12 +138,6 @@
                     android:id="@+id/placeOfBirth"
                     android:hint="Place of Birth"
                     android:layout_weight="1.00"/>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="getLocation"
-                    android:id="@+id/getCurrentLocation"
-                    android:layout_gravity="right"/>
         </LinearLayout>
 
         <Button

@@ -14,10 +14,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.TextView;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.EventAdapter;
@@ -108,14 +104,13 @@ public class CreateFavorite extends Activity {
 
             TextView notes = (TextView) this.findViewById(R.id.eventDescription);
 
-
-            tempDescription = createDescription(dateOfHoliday.getText().toString());
-
             event.setType(type);
-            event.setEventDescription(tempDescription);
             event.setDate(dateOfHoliday.getText().toString());
             event.setNotes(notes.getText().toString());
             event.setBaby(global.selectedBaby);
+
+            tempDescription = createDescription(dateOfHoliday.getText().toString());
+            event.setEventDescription(tempDescription);
 
             if (edit) {
                 //edit event
@@ -267,7 +262,7 @@ public class CreateFavorite extends Activity {
     }
 
     private String createDescription(String dateOfHoliday) {
-        return global.selectedBaby.getName() + " favorite " + type +
+        return global.selectedBaby.getName() + " favorite " + type + " is " + event.getNotes() +
                 " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday);
     }
 

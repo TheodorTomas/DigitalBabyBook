@@ -114,16 +114,15 @@ public class CreateFirst extends Activity {
             TextView notes = (TextView) this.findViewById(R.id.eventDescription);
             TextView witness = (TextView) this.findViewById(R.id.Witness);
 
-
-            tempDescription = createDescription(dateOfHoliday.getText().toString());
-
             event.setType(type);
-            event.setEventDescription(tempDescription);
             event.setDate(dateOfHoliday.getText().toString());
             event.setLocation(location.getText().toString());
             event.setNotes(notes.getText().toString());
             event.setWitness(witness.getText().toString());
             event.setBaby(global.selectedBaby);
+
+            tempDescription = createDescription(dateOfHoliday.getText().toString());
+            event.setEventDescription(tempDescription);
 
             if (edit) {
                 //edit event
@@ -285,8 +284,8 @@ public class CreateFirst extends Activity {
     }
 
     private String createDescription(String dateOfHoliday) {
-        return global.selectedBaby.getName() + " first " + type +
-                " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday);
+        return event.getWitness() + " witnessed " + global.selectedBaby.getName() + " first " +
+                type + " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday);
     }
 
 

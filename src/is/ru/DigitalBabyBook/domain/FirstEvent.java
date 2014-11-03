@@ -5,16 +5,11 @@ package is.ru.DigitalBabyBook.domain;
  */
 public class FirstEvent extends Event {
 
-
     public String witness;
-
-
     public int firstID;
 
     public FirstEvent() {
     }
-
-    ;
 
     public FirstEvent(String type, String eventDescription, String date, String location, String photos,   String notes, String witness, Baby baby) {
         super(type, eventDescription, date, location, photos, notes, baby);

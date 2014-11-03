@@ -36,7 +36,7 @@ public class FavoriteEventAdapter {
 
     public long insertFavorite(int babyID, long eventID, String description, String date, String photo, String notes) {
 
-        String[] cols = DbHelper.TableFavoriteEventCols; //  "babyID  1", "eventID  2", "description 3", "date 4", "photo 4", "notes 5"
+        String[] cols = DbHelper.TableFavoriteEventCols; //  "babyID  1", "eventID  2", "description 3", "date 4", "photo 5", "notes 6"
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(cols[1], babyID);

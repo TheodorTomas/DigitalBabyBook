@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.Window;
 import is.ru.DigitalBabyBook.Global;
 import is.ru.DigitalBabyBook.R;
-import is.ru.DigitalBabyBook.adapters.BabyAdapter;
-import is.ru.DigitalBabyBook.adapters.EventAdapter;
-import is.ru.DigitalBabyBook.adapters.HolidayEventAdapter;
+import is.ru.DigitalBabyBook.adapters.*;
 import is.ru.DigitalBabyBook.domain.Baby;
 
 /**
@@ -72,8 +70,8 @@ public class BabyHomeActivity extends FragmentActivity {
                 BabyHomeFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Event"),
                 EventListFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
-                ChecklistHomeFragment.class, null);
+        //mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
+          //      ChecklistHomeFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab4").setIndicator("", getResources().getDrawable(R.drawable.ic_action_settings)),
                 SettingsHomeFragment.class, null);
 
@@ -92,8 +90,8 @@ public class BabyHomeActivity extends FragmentActivity {
         //thx http://stackoverflow.com/questions/2257963/how-to-show-a-dialog-to-confirm-that-the-user-wishes-to-exit-an-android-activity
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Reset Babies")
-                .setMessage("Are you sure you want to reset your babies?")
+                .setTitle("Reset baby")
+                .setMessage("Are you sure you want to reset your baby?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
                     @Override
@@ -101,11 +99,15 @@ public class BabyHomeActivity extends FragmentActivity {
                         BabyAdapter babyAdapter = new BabyAdapter(babyHomeActivity);
                         HolidayEventAdapter holidayEventAdapter = new HolidayEventAdapter(babyHomeActivity);
                         EventAdapter eventAdapter = new EventAdapter(babyHomeActivity);
+                        FirstEventAdapter firstEventAdapter = new FirstEventAdapter(babyHomeActivity);
+                        FavoriteEventAdapter favoriteEventAdapter = new FavoriteEventAdapter(babyHomeActivity);
                         babyAdapter.deleteAll();
                         holidayEventAdapter.deleteAll();
+                        firstEventAdapter.deleteAll();
+                        favoriteEventAdapter.deleteAll();
                         eventAdapter.deleteAll();
 
-                        startActivity(new Intent(getBaseContext(),MainActivity.class));
+                        startActivity(new Intent(getBaseContext(), MainActivity.class));
                     }
 
                 })

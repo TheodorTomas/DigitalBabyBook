@@ -14,8 +14,6 @@ public class FavoriteEvent extends Event {
     public FavoriteEvent() {
     }
 
-    ;
-
     public FavoriteEvent(String type, String eventDescription, String date, String location, String photos, String notes, Baby baby) {
         super(type, eventDescription, date, location, photos, notes, baby);
     }
