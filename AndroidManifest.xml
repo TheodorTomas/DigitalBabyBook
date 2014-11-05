@@ -23,5 +23,7 @@
         <activity android:name=".Activities.CreateFirst"/>
         <activity android:name=".Activities.CreateFavorite"/>
         <activity android:name=".Activities.ViewHoliday"/>
+        <activity android:name=".Activities.ViewFirst"/>
+        <activity android:name=".Activities.ViewFavorite"/>
     </application>
 </manifest>

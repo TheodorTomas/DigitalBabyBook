@@ -101,10 +101,19 @@ public class BabyHomeFragment extends Fragment {
                 System.out.println(position);
                 Event event = events.get(position);
                 System.out.println(event.getEventDescription());
-                Intent i = new Intent(view.getContext(), ViewHoliday.class);
+                Intent i = new Intent();
                 i.putExtra("eventId", event.getEventID());
                 i.putExtra("eventType", event.getType());
-                startActivity(i);
+                if (checkIfHoliday(event.getType())) {
+                    i.setClass(view.getContext(), ViewHoliday.class);
+                    startActivity(i);
+                } else if (checkIfFirst(event.getType())) {
+                    i.setClass(view.getContext(), ViewFirst.class);
+                    startActivity(i);
+                } else if (checkIfFavorite(event.getType())) {
+                    i.setClass(view.getContext(), ViewFavorite.class);
+                    startActivity(i);
+                }
             }
         });
 
@@ -116,7 +125,17 @@ public class BabyHomeFragment extends Fragment {
         linearLayout.setLayoutParams(layoutParams);
     }
 
+    private boolean checkIfHoliday(String type ) {
+        return type.equals("Birthday") || type.equals("Christmas") || type.equals("Easters") || type.equals("Vacation");
+    }
 
+    private boolean checkIfFirst(String type) {
+        return type.equals("Smile") || type.equals("Laughter") || type.equals("Steps") || type.equals("Tooth");
+    }
+
+    private boolean checkIfFavorite(String type) {
+        return type.equals("Food") || type.equals("Drink") || type.equals("Toy") || type.equals("Color");
+    }
 
 
 }

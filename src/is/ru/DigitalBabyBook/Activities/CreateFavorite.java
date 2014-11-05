@@ -96,6 +96,10 @@ public class CreateFavorite extends Activity {
         dateDisplay.setText("Date");
         dateDisplay.setTextColor(Color.rgb(173, 173, 173));
 
+        if (edit) {
+            changeToEditMode();
+        }
+
     }
     public void addFavorite(View view) {
         // store group, type and additional input
