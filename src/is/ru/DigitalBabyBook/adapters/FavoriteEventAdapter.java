@@ -34,9 +34,9 @@ public class FavoriteEventAdapter {
         db.close();
     }
 
-    public long insertFavorite(int babyID, long eventID, String description, String date, String photo, String notes) {
+    public long insertFavorite(int babyID, long eventID, String description, String date, String photo, String notes, String name) {
 
-        String[] cols = DbHelper.TableFavoriteEventCols; //  "babyID  1", "eventID  2", "description 3", "date 4", "photo 5", "notes 6"
+        String[] cols = DbHelper.TableFavoriteEventCols; //  "babyID  1", "eventID  2", "description 3", "date 4", "photo 5", "notes 6", "name 7"
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(cols[1], babyID);
@@ -45,13 +45,14 @@ public class FavoriteEventAdapter {
         contentValues.put(cols[4], date);
         contentValues.put(cols[5], photo);
         contentValues.put(cols[6], notes);
+        contentValues.put(cols[7], name);
 
         openToWrite();
         long value = db.insert(DbHelper.FavoriteEventTable, null, contentValues);
         close();
         return value;
     }
-    public long updateFavorite(int favoriteId, int babyID, long eventID, String description, String date,  String photo , String notes) {
+    public long updateFavorite(int favoriteId, int babyID, long eventID, String description, String date,  String photo, String notes, String name) {
         String[] cols = DbHelper.TableFavoriteEventCols; //  "babyID  1", "eventID  2", "description 3", "date  4",  "photo 5", , "notes  6"
         ContentValues contentValues = new ContentValues();
 
@@ -61,6 +62,7 @@ public class FavoriteEventAdapter {
         contentValues.put(cols[4], date);
         contentValues.put(cols[5], photo);
         contentValues.put(cols[6], notes);
+        contentValues.put(cols[7], name);
 
         openToWrite();
         long value = db.update(DbHelper.FavoriteEventTable, contentValues,

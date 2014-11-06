@@ -137,7 +137,8 @@ public class CreateFavorite extends Activity {
                         event.getEventDescription(),
                         event.getDate(),
                         event.getPhotos(),
-                        event.getNotes());
+                        event.getNotes(),
+                        event.getName());
                 favoriteEventAdapter.close();
 
                 System.out.println("update event ID " + updateEventId );
@@ -160,7 +161,8 @@ public class CreateFavorite extends Activity {
                         event.getEventDescription(),
                         event.getDate(),
                         event.getPhotos(),
-                        event.getNotes());
+                        event.getNotes(),
+                        event.getName());
                         favoriteEventAdapter.close();
             }
 

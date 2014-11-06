@@ -7,18 +7,27 @@ public class FavoriteEvent extends Event {
 
 
     public int favoriteID;
-    private String type;
-    private String date;
-    private String photo;
+
+
+
+    public String name;
 
     public FavoriteEvent() {
     }
 
-    public FavoriteEvent(String type, String eventDescription, String date, String location, String photos, String notes, Baby baby) {
+    public FavoriteEvent(String type, String eventDescription, String date, String location, String photos, String notes,String name, Baby baby) {
         super(type, eventDescription, date, location, photos, notes, baby);
+        this.name = name;
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getFavoriteID() {
         return favoriteID;

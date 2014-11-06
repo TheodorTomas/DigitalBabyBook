@@ -22,7 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String[] TableFirstEventCols = {"_id", "babyID", "eventID", "description", "date", "location", "photo",  "notes", "witness"};
 
     public static final String FavoriteEventTable = "favoriteEvents";
-    public static final String[] TableFavoriteEventCols = {"_id", "babyID", "eventID", "description", "date", "photo", "notes"};
+    public static final String[] TableFavoriteEventCols = {"_id", "babyID", "eventID", "description", "date", "photo", "notes", "name"};
 
     public static final String EventTable = "events";
     public static final String[] TableEventCols = { "_id", "babyID", "description", "date", "photo", "type" };
@@ -87,6 +87,7 @@ public class DbHelper extends SQLiteOpenHelper {
             " date DATE NOT NULL," +
             " photo TEXT NULL, " +
             " notes TEXT NULL, " +
+            " name TEXT NULL, " +
             " FOREIGN KEY(babyID) REFERENCES babies(_id), " +
             " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";

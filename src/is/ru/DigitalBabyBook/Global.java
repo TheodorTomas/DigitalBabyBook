@@ -60,8 +60,8 @@ public class Global {
             if (periodMonth.getMonths() == 0) {
                 return periodMonth.getDays() + day;
             }
-            day = isPlural(periodWeek.getDays()) ? " day" : " days";
-            return periodWeek.getWeeks() + week + " and " + periodWeek.getDays() + day;
+            day = isPlural(Math.abs(periodWeek.getDays())) ? " day" : " days";
+            return periodWeek.getWeeks() + week + " and " + Math.abs(periodWeek.getDays()) + day;
         }
         week = isPlural(periodWeek.getWeeks() % periodMonth.getMonths()) ? " week" : " weeks";
         return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week;
