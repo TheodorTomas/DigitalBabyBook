@@ -40,10 +40,9 @@
                           android:orientation="vertical"
                           android:paddingTop="20dp"
                           android:layout_marginBottom="10dp">
-
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:ems="10"
                         android:id="@+id/babyName"/>
             </LinearLayout>
