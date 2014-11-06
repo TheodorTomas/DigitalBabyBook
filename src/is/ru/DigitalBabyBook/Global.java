@@ -38,6 +38,7 @@ public class Global {
             e.printStackTrace();
         }
 
+
         LocalDate birthdate = new LocalDate (date);
         LocalDate now;
         if (from != null) {
@@ -45,26 +46,36 @@ public class Global {
         } else {
             now = new LocalDate();
         }
+        String returnMe = "";
+        //Checks if the baby isn't born yet and changes the return string accordingly
+        if(birthdate.isAfter(now)){
+            returnMe = "Expected in ";
+        }
         Period periodWeek = new Period(birthdate, now, PeriodType.yearWeekDay());
         Period periodMonth = new Period(birthdate, now, PeriodType.yearMonthDay());
 
-        String day = isPlural(periodMonth.getDays()) ? " day" : " days";
-        String month = isPlural(periodMonth.getMonths()) ? " month" : " months";
-        String week = isPlural(periodWeek.getWeeks()) ? " week" : " weeks";
-        String year = isPlural(periodMonth.getYears()) ? " year" : " years";
+        String day = isPlural(Math.abs(periodMonth.getDays())) ? " day" : " days";
+        String month = isPlural(Math.abs(periodMonth.getMonths())) ? " month" : " months";
+        String week = isPlural(Math.abs(periodWeek.getWeeks())) ? " week" : " weeks";
+        String year = isPlural(Math.abs(periodMonth.getYears())) ? " year" : " years";
 
-        if (periodMonth.getYears() > 1) {
-            return periodMonth.getYears() +  year + " and " + periodMonth.getMonths() + month;
+        if (Math.abs(periodMonth.getYears()) >= 1) {
+            if(Math.abs(periodMonth.getMonths()) != 0) {
+                return returnMe + Math.abs(periodMonth.getYears()) + year + " and " + Math.abs(periodMonth.getMonths()) + month;
+            }
+            else{
+                return returnMe + Math.abs(periodMonth.getYears()) + year;
+            }
         }
-        if (periodMonth.getMonths() < 3) {
-            if (periodMonth.getMonths() == 0) {
-                return periodMonth.getDays() + day;
+        if (Math.abs(periodMonth.getMonths()) < 3) {
+            if (Math.abs(periodMonth.getMonths()) == 0) {
+                return returnMe + Math.abs(periodMonth.getDays()) + day;
             }
             day = isPlural(Math.abs(periodWeek.getDays())) ? " day" : " days";
-            return periodWeek.getWeeks() + week + " and " + Math.abs(periodWeek.getDays()) + day;
+            return returnMe + Math.abs(periodWeek.getWeeks()) + week + " and " + Math.abs(periodWeek.getDays()) + day;
         }
-        week = isPlural(periodWeek.getWeeks() % periodMonth.getMonths()) ? " week" : " weeks";
-        return periodMonth.getMonths()  + month + " and " + periodWeek.getWeeks() % periodMonth.getMonths() + week;
+        week = isPlural(Math.abs(periodWeek.getWeeks()) % Math.abs(periodMonth.getMonths())) ? " week" : " weeks";
+        return returnMe +Math.abs(periodMonth.getMonths())  + month + " and " + Math.abs(periodWeek.getWeeks()) % Math.abs(periodMonth.getMonths()) + week;
     }
 
 
@@ -96,6 +107,6 @@ public class Global {
     }
 
     private boolean isPlural(int number) {
-        return number <= 1;
+        return number <= 1 || number == 0;
     }
 }

@@ -29,6 +29,7 @@ public class BabyHomeFragment extends Fragment {
     private EventAdapter eventAdapter;
     private Cursor mCursor;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,8 +55,12 @@ public class BabyHomeFragment extends Fragment {
         }
 
         TextView babyAge = (TextView) V.findViewById(R.id.home_babyAge);
-        babyAge.setText(age + " old");
-
+        if(age.contains("Expected")){
+            babyAge.setText(age);
+        }
+        else {
+            babyAge.setText(age + " old");
+        }
         updateHolidayEventFeed(V);
         return V;
     }

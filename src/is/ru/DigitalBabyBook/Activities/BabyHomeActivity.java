@@ -27,6 +27,11 @@ public class BabyHomeActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
 
     @Override
+    public void onBackPressed() {
+//        moveTaskToBack(true);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
@@ -60,6 +65,7 @@ public class BabyHomeActivity extends FragmentActivity {
                     global.selectedBaby = baby;
                 }
             }
+
         }
 
         //thx http://stackoverflow.com/questions/17227855/tabhost-with-fragments-and-fragmentactivity
