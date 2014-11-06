@@ -103,13 +103,16 @@ public class CreateFavorite extends Activity {
     }
     public void addFavorite(View view) {
         // store group, type and additional input
-        if (valid) {
+        EditText name = (EditText) this.findViewById(R.id.name);
+
+        if (valid && !(name.getText().toString().equals(""))) {
             TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
 
             TextView notes = (TextView) this.findViewById(R.id.eventDescription);
 
             event.setType(type);
             event.setDate(dateOfHoliday.getText().toString());
+            event.setName(name.getText().toString());
             event.setNotes(notes.getText().toString());
             event.setBaby(global.selectedBaby);
 
@@ -173,7 +176,12 @@ public class CreateFavorite extends Activity {
             startActivity(i);
         }
         else{
-            Toast.makeText(getApplicationContext(), "Please Insert Date", Toast.LENGTH_SHORT).show();
+            if (!valid) {
+                Toast.makeText(getApplicationContext(), "Please Insert Date", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please insert Name", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -268,7 +276,7 @@ public class CreateFavorite extends Activity {
     }
 
     private String createDescription(String dateOfHoliday) {
-        return global.selectedBaby.getName() + " favorite " + type + " is " + event.getNotes() +
+        return global.selectedBaby.getName() + " favorite " + type + " is " + event.getName() +
                 " at age " + global.calculateAge(global.selectedBaby.getDateOfBirth(), dateOfHoliday);
     }
 

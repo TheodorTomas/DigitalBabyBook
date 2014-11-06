@@ -28,7 +28,7 @@
                       android:layout_height="100dp"
                       android:orientation="horizontal"
                       android:layout_marginBottom="20dp">
-            <ImageView android:layout_width="100dp"
+            <ImageView android:layout_width="150dp"
                        android:layout_height="match_parent"
                        android:src="@drawable/ic_action_new_picture"
                        android:id="@+id/first_photo"

@@ -108,17 +108,19 @@ public class CreateFirst extends Activity {
     }
     public void addFirst(View view) {
         // store group, type and additional input
-        if (valid) {
-            TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
-            TextView location = (TextView) this.findViewById(R.id.location);
-            TextView notes = (TextView) this.findViewById(R.id.eventDescription);
-            TextView witness = (TextView) this.findViewById(R.id.Witness);
+        TextView dateOfHoliday = (TextView) this.findViewById(R.id.holiday_dateDisplay);
+        TextView location = (TextView) this.findViewById(R.id.location);
+        TextView notes = (TextView) this.findViewById(R.id.eventDescription);
+        TextView witness = (TextView) this.findViewById(R.id.Witness);
+
+        if (valid && !(witness.getText().toString().equals(""))) {
 
             event.setType(type);
             event.setDate(dateOfHoliday.getText().toString());
             event.setLocation(location.getText().toString());
             event.setNotes(notes.getText().toString());
             event.setWitness(witness.getText().toString());
+
             event.setBaby(global.selectedBaby);
 
             tempDescription = createDescription(dateOfHoliday.getText().toString());
@@ -183,7 +185,12 @@ public class CreateFirst extends Activity {
             startActivity(i);
         }
         else{
-            Toast.makeText(getApplicationContext(), "Please Insert Date", Toast.LENGTH_SHORT).show();
+            if (!valid) {
+                Toast.makeText(getApplicationContext(), "Please Insert Date", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please Insert Witness", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
