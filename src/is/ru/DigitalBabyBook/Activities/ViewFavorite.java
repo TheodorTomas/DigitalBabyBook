@@ -78,7 +78,7 @@ public class ViewFavorite extends Activity {
         TextView babyName = (TextView) this.findViewById(R.id.babyName);
         babyName.setText(favoriteEvent.getEventDescription());
 
-        TextView favoriteName = (TextView) this.findViewById(R.id.favorite_name);
+        TextView favoriteName = (TextView) this.findViewById(R.id.favorite_name); //name
         favoriteName.setText("Name: " + favoriteEvent.getName());
 
         TextView eventNotes = (TextView) this.findViewById(R.id.favorite_notes);
