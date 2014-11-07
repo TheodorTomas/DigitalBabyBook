@@ -1,5 +1,6 @@
 package is.ru.DigitalBabyBook.Activities;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import is.ru.DigitalBabyBook.R;
+import is.ru.DigitalBabyBook.adapters.ChecklistAdapter;
 import is.ru.DigitalBabyBook.adapters.EventExpandableListAdapter;
+import is.ru.DigitalBabyBook.domain.ChecklistItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,12 +25,17 @@ public class ChecklistHomeFragment extends Fragment {
     private ExpandableListView expListView;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
+    private List<String> allChecklistItems = new ArrayList<String>();
+
+    private ChecklistAdapter checklistAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View V = inflater.inflate(R.layout.checklist_home_tab, container, false);
+
+        checklistAdapter = new ChecklistAdapter(V.getContext());
 
         // get the listview
         expListView = (ExpandableListView) V.findViewById(R.id.chExp);
@@ -45,6 +53,34 @@ public class ChecklistHomeFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+                System.out.println("update " + childPosition);
+                String clickedItem = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+
+                int checkID = getChecklistID(clickedItem);
+                boolean done;
+                if (clickedItem.toLowerCase().contains("✔".toLowerCase())) {
+                    System.out.println("DONE");
+                    done = false;
+                } else {
+                    System.out.println("NOT DONE");
+                    done = true;
+                }
+
+                if (checkID > -1) {
+                    checklistAdapter.updateChecklist(checkID + 1, done);
+                    prepareListData();
+                    expListView.invalidateViews();
+                    listAdapter.notifyDataSetChanged();
+                    V.invalidate();
+                    Fragment frg = null;
+                    frg = getFragmentManager().findFragmentById(R.id.realtabcontent);
+                    final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+
+                }
+
                 return false;
             }
         });
@@ -53,6 +89,7 @@ public class ChecklistHomeFragment extends Fragment {
     }
 
     private void prepareListData() {
+        allChecklistItems = new ArrayList<String>();
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
@@ -64,71 +101,14 @@ public class ChecklistHomeFragment extends Fragment {
         listDataHeader.add("1 Year");
 
         // Adding child data
-        List<String> twoMonth = new ArrayList<String>();
-        twoMonth.add("Pays attention to faces");
-        twoMonth.add("Begins to follow things with eyes and recognize people at a distance");
-        twoMonth.add("Begins to act bored (cries, fussy) if activity doesn’t change");
-        twoMonth.add("Can hold head up and begins to push up when lying on tummy");
-        twoMonth.add("Makes smoother movements with arms and legs");
+        List<String> twoMonth = createList("2m");
+        List<String> fourMonth = createList("4m");
+        List<String> sixMonth = createList("6m");
+        List<String> nineMonth = createList("9m");
+        List<String> oneYear = createList("1yr");
 
-        List<String> fourMonth = new ArrayList<String>();
 
-        fourMonth.add("Lets you know if she is happy or sad");
-        fourMonth.add("Responds to affection");
-        fourMonth.add("Reaches for toy with one hand");
-        fourMonth.add("Uses hands and eyes together, such as seeing a toy and reaching for it");
-        fourMonth.add("Follows moving things with eyes from side to side");
-        fourMonth.add("Watches faces closely");
-        fourMonth.add("Recognizes familiar people and things at a distance");
-        fourMonth.add("Holds head steady, unsupported");
-        fourMonth.add("Pushes down on legs when feet are on a hard surface");
-        fourMonth.add("May be able to roll over from tummy to back");
-        fourMonth.add("Can hold a toy and shake it and swing at dangling toys");
-        fourMonth.add("Brings hands to mouth");
-        fourMonth.add("When lying on stomach, pushes up to elbows");
-
-        List<String> sixMonth = new ArrayList<String>();
-
-        sixMonth.add("Looks around at things nearby");
-        sixMonth.add("Brings things to mouth");
-        sixMonth.add("Brings things to mouth");
-        sixMonth.add("Shows curiosity about things and tries to get things that are out of reach");
-        sixMonth.add("Begins to pass things from one hand to the other");
-        sixMonth.add("Rolls over in both directions (front to back, back to front)");
-        sixMonth.add("Begins to sit without support");
-        sixMonth.add("When standing, supports weight on legs and might bounce");
-        sixMonth.add("Rocks back and forth, sometimes crawling backward before moving forward");
-
-        List<String> nineMonth = new ArrayList<String>();
-
-        nineMonth.add("Watches the path of something as it falls");
-        nineMonth.add("Looks for things he sees you hide");
-        nineMonth.add("Plays peek-a-boo");
-        nineMonth.add("Puts things in her mouth");
-        nineMonth.add("Moves things smoothly from one hand to the other");
-        nineMonth.add("Picks up things like cereal o’s between thumb and index finger");
-        nineMonth.add("Stands, holding on");
-        nineMonth.add("Can get into sitting position");
-        nineMonth.add("Sits without support");
-        nineMonth.add("Pulls to stand");
-        nineMonth.add("Crawls");
-
-        List<String> oneYear = new ArrayList<String>();
-
-        oneYear.add("Explores things in different ways, like shaking, banging, throwing");
-        oneYear.add("Finds hidden things easily");
-        oneYear.add("Looks at the right picture or thing when it’s named");
-        oneYear.add("Copies gestures");
-        oneYear.add("Starts to use things correctly, for example, drinks from a cup, brushes hair");
-        oneYear.add("Bangs two things together");
-        oneYear.add("Puts things in a container, takes things out of a container");
-        oneYear.add("Lets things go without help");
-        oneYear.add("Pokes with index (pointer) finger");
-        oneYear.add("Follows simple directions like “pick up the toy”");
-        oneYear.add("Gets to a sitting position without help");
-        oneYear.add("Pulls up to stand, walks holding on to furniture (“cruising”)");
-        oneYear.add("May take a few steps without holding on");
-        oneYear.add("May stand alone");
+        checklistAdapter.close();
 
         listDataChild.put(listDataHeader.get(0), twoMonth); // Header, Child data
         listDataChild.put(listDataHeader.get(1), fourMonth);
@@ -136,4 +116,52 @@ public class ChecklistHomeFragment extends Fragment {
         listDataChild.put(listDataHeader.get(3), nineMonth);
         listDataChild.put(listDataHeader.get(4), oneYear);
     }
+
+    private int getChecklistID(String description) {
+        String clean = cleanUp(description);
+        for (int i = 0; i < allChecklistItems.size(); i++) {
+            String check = cleanUp(allChecklistItems.get(i));
+            if (check.equals(clean)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private List<String> createList(String type) {
+        Cursor cursor = checklistAdapter.queryChecklistByType(type);
+        ChecklistItem c;
+        List<String> theList = new ArrayList<String>();
+        if (cursor.moveToFirst()) {
+            do {
+                // { "_id  0", "babyID   1", "description   2", "date   3", "type   4", "done   5"  };
+                c = new ChecklistItem();
+                boolean done = cursor.getInt(5) > 0;
+                String toAdd = cursor.getString(2);
+                if (done) {
+                    //add check
+                    toAdd = "✔ " + toAdd;
+                } else {
+                    toAdd = cleanUp(toAdd);
+                }
+                c.setDescription(toAdd);
+                allChecklistItems.add(c.getDescription());
+                theList.add(c.getDescription());
+
+            } while (cursor.moveToNext());
+        }
+
+        return theList;
+    }
+
+    private String cleanUp(String s) {
+        String skil = s;
+        if (s.toLowerCase().contains("✔".toLowerCase())) {
+            //remove it
+            skil = s.replace("✔ ", "");
+        }
+        return skil;
+    }
+
+
 }

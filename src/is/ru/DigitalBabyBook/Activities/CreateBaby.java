@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import is.ru.DigitalBabyBook.Global;
+import is.ru.DigitalBabyBook.InitChecklist;
 import is.ru.DigitalBabyBook.R;
 import is.ru.DigitalBabyBook.adapters.BabyAdapter;
 import is.ru.DigitalBabyBook.domain.Baby;
@@ -179,6 +180,10 @@ public class CreateBaby extends Activity {
                         baby.getHairColor(),
                         baby.getProfilePicture());
                 mBA.close();
+
+                InitChecklist init = new InitChecklist(this);
+                init.init(l);
+
             }
 
             Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);

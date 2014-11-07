@@ -27,6 +27,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String EventTable = "events";
     public static final String[] TableEventCols = { "_id", "babyID", "description", "date", "photo", "type" };
 
+    public static final String ChecklistTable = "checklists";
+    public static final String[] TableChecklistCols = { "_id", "babyID", "description", "date", "type", "done" };
+
     private static final String sqlCreateTableEvent = "CREATE TABLE events(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
             " babyID INT NOT NULL, " +
@@ -36,8 +39,6 @@ public class DbHelper extends SQLiteOpenHelper {
             " type TEXT NULL, " +
             " FOREIGN KEY(babyID) REFERENCES babies(_id) " +
             ");";
-
-
 
     private static final String sqlCreateTableBabies = "CREATE TABLE babies(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -92,6 +93,16 @@ public class DbHelper extends SQLiteOpenHelper {
             " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";
 
+    private static final String sqlCreateTableChecklist = "CREATE TABLE checklists(" +
+            " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            " babyID INT NOT NULL, " +
+            " description TEXT NOT NULL, " +
+            " date DATE NULL, " +
+            " type TEXT NOT NULL, " +
+            " done boolean DEFAULT FALSE, " +
+            " FOREIGN KEY(babyID) REFERENCES babies(_id) " +
+            ");";
+
     private static final String sqlDropTableEvents =
             "DROP TABLE IF EXISTS events";
 
@@ -107,10 +118,12 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String sqlDropTableFavoriteEvents =
             "DROP TABLE IF EXISTS favoriteEvents";
 
+    private static final String sqlDropTableChecklists =
+            "DROP TABLE IF EXISTS checklists";
+
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -119,6 +132,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(sqlCreateTableHolidayEvents);
         db.execSQL(sqlCreateTableFirstEvents);
         db.execSQL(sqlCreateTableFavoriteEvents);
+        db.execSQL(sqlCreateTableChecklist);
     }
 
     @Override
@@ -127,6 +141,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(sqlDropTableFirstEvents);
         db.execSQL(sqlDropTableFavoriteEvents);
         db.execSQL(sqlDropTableEvents);
+        db.execSQL(sqlDropTableChecklists);
         db.execSQL(sqlDropTableBabies);
         onCreate(db);
     }
