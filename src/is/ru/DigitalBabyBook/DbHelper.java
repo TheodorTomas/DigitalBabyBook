@@ -93,7 +93,7 @@ public class DbHelper extends SQLiteOpenHelper {
             " FOREIGN KEY(eventID) REFERENCES events(_id) " +
             ");";
 
-    private static final String sqlCreateTableChecklist = "CREATE TABLE checklists(" +
+    public static final String sqlCreateTableChecklist = "CREATE TABLE checklists(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
             " babyID INT NOT NULL, " +
             " description TEXT NOT NULL, " +
@@ -118,7 +118,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String sqlDropTableFavoriteEvents =
             "DROP TABLE IF EXISTS favoriteEvents";
 
-    private static final String sqlDropTableChecklists =
+    public static final String sqlDropTableChecklists =
             "DROP TABLE IF EXISTS checklists";
 
     public DbHelper(Context context) {

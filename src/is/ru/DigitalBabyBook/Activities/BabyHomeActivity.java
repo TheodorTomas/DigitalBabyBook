@@ -102,11 +102,13 @@ public class BabyHomeActivity extends FragmentActivity {
                         EventAdapter eventAdapter = new EventAdapter(babyHomeActivity);
                         FirstEventAdapter firstEventAdapter = new FirstEventAdapter(babyHomeActivity);
                         FavoriteEventAdapter favoriteEventAdapter = new FavoriteEventAdapter(babyHomeActivity);
+                        ChecklistAdapter checklistAdapter = new ChecklistAdapter(babyHomeActivity);
                         babyAdapter.deleteAll();
                         holidayEventAdapter.deleteAll();
                         firstEventAdapter.deleteAll();
                         favoriteEventAdapter.deleteAll();
                         eventAdapter.deleteAll();
+                        checklistAdapter.recreate();
 
                         startActivity(new Intent(getBaseContext(), MainActivity.class));
                     }

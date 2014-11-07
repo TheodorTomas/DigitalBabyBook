@@ -11,16 +11,21 @@ import java.util.List;
  */
 public class InitChecklist {
 
-    private List<String> twoMonth = new ArrayList<String>();
-    private List<String> fourMonth = new ArrayList<String>();
-    private List<String> sixMonth = new ArrayList<String>();
-    private List<String> nineMonth = new ArrayList<String>();
-    private List<String> oneYear = new ArrayList<String>();
+    private List<String> twoMonth;
+    private List<String> fourMonth;
+    private List<String> sixMonth;
+    private List<String> nineMonth;
+    private List<String> oneYear;
 
     private Context context;
 
     public InitChecklist(Context c) {
         context = c;
+        twoMonth = new ArrayList<String>();
+        fourMonth = new ArrayList<String>();
+        sixMonth = new ArrayList<String>();
+        nineMonth = new ArrayList<String>();
+        oneYear = new ArrayList<String>();
     }
 
     public void init(long babyId) {

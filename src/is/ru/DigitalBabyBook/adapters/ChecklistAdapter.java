@@ -101,4 +101,10 @@ public class ChecklistAdapter {
         return db.delete(DbHelper.ChecklistTable, rowId + "= _id", null) != 0;
     }
 
+    public void recreate() {
+        openToRead();
+        db.execSQL(DbHelper.sqlDropTableChecklists);
+        db.execSQL(DbHelper.sqlCreateTableChecklist);
+    }
+
 }
