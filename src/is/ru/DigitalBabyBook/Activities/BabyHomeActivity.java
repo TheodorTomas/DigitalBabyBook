@@ -76,8 +76,8 @@ public class BabyHomeActivity extends FragmentActivity {
                 BabyHomeFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Event"),
                 EventListFragment.class, null);
-        //mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
-          //      ChecklistHomeFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Checklist"),
+                ChecklistHomeFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab4").setIndicator("", getResources().getDrawable(R.drawable.ic_action_settings)),
                 SettingsHomeFragment.class, null);
 
