@@ -54,6 +54,7 @@ public class ViewFavorite extends Activity {
                 f.setDate(mCursor.getString(4));
                 f.setPhotos(mCursor.getString(5));
                 f.setNotes(mCursor.getString(6));
+                f.setName(mCursor.getString(7));
 
                 favoriteEvents.add(f);
 
@@ -77,8 +78,8 @@ public class ViewFavorite extends Activity {
         TextView babyName = (TextView) this.findViewById(R.id.babyName);
         babyName.setText(favoriteEvent.getEventDescription());
 
-        //TextView eventGifts = (TextView) this.findViewById(R.id.favorite_notes);
-        //eventGifts.setText("Witness: " + favoriteEvent.getEventDescription());     TODO: this needs to be name
+        TextView favoriteName = (TextView) this.findViewById(R.id.favorite_name);
+        favoriteName.setText("Name: " + favoriteEvent.getName());
 
         TextView eventNotes = (TextView) this.findViewById(R.id.favorite_notes);
         eventNotes.setText("Notes: " + favoriteEvent.getNotes());
