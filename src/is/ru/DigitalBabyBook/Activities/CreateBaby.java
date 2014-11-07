@@ -39,6 +39,7 @@ public class CreateBaby extends Activity {
     private int mMonth;
     private int mDay;
     private boolean valid;
+    private boolean edit;
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -52,6 +53,9 @@ public class CreateBaby extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove top bar
         setContentView(R.layout.create_baby);
+
+        Bundle extras = getIntent().getExtras();
+        edit = extras.getBoolean("edit");
 
         valid = false;
         dateDisplay = (TextView) this.findViewById(R.id.dateDisplay);
@@ -95,7 +99,6 @@ public class CreateBaby extends Activity {
             }
         });
 
-        Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String gender = extras.getString("gender");
 
@@ -121,6 +124,10 @@ public class CreateBaby extends Activity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        if (edit) {
+            changeToEditMode();
         }
     }
 
@@ -153,15 +160,29 @@ public class CreateBaby extends Activity {
             baby.setHairColor(babyHairColor.getText().toString());
             baby.setBirthLocation(placeOfBirth.getText().toString());
 
-            global.selectedBaby = baby; //set the baby to global (later save to db)
-
-            //(String name, String birthLocation, String gender, double size, double weight, String hairColor )
-            long l = mBA.insertBaby(babyName.getText().toString(), baby.getDateOfBirth(), baby.getBirthLocation(), baby.getGender(), baby.getSize(), baby.getWeight(), baby.getHairColor(), baby.getProfilePicture());
-            mBA.close();
+            global.selectedBaby = baby; //set the baby to global
+            long l;
+            if (edit) {
+                int babyId = global.selectedBaby.getId();
+                l = mBA.updateBaby(babyId,
+                        babyName.getText().toString(),
+                        baby.getDateOfBirth(), baby.getBirthLocation(),
+                        baby.getGender(), baby.getSize(), baby.getWeight(),
+                        baby.getHairColor(),
+                        baby.getProfilePicture());
+                mBA.close();
+            } else {
+                l = mBA.insertBaby(
+                        babyName.getText().toString(),
+                        baby.getDateOfBirth(), baby.getBirthLocation(),
+                        baby.getGender(), baby.getSize(), baby.getWeight(),
+                        baby.getHairColor(),
+                        baby.getProfilePicture());
+                mBA.close();
+            }
 
             Intent i = new Intent(getBaseContext(), BabyHomeActivity.class);
             i.putExtra("babyId", l);
-
             startActivity(i);
         }
         else {
@@ -175,6 +196,38 @@ public class CreateBaby extends Activity {
 
         // Start new activity with the LOAD_IMAGE_RESULTS to handle back the results when image is picked from the Image Gallery.
         startActivityForResult(i, LOAD_IMAGE_RESULTS);
+    }
+
+    private void changeToEditMode() {
+        valid = true;
+        TextView babyName = (TextView) this.findViewById(R.id.babyName);
+        TextView dateOfBirth = (TextView) this.findViewById(R.id.dateDisplay);
+        TextView babyWeight = (TextView) this.findViewById(R.id.babyWeight);
+        TextView babySize = (TextView) this.findViewById(R.id.babySize);
+        TextView babyHairColor = (TextView) this.findViewById(R.id.babyHairColor);
+        TextView placeOfBirth = (TextView) this.findViewById(R.id.placeOfBirth);
+
+        babyName.setText(global.selectedBaby.getName());
+        dateOfBirth.setText(global.selectedBaby.getDateOfBirth());
+        babyWeight.setText(String.valueOf(global.selectedBaby.getWeight()));
+        babySize.setText(String.valueOf(global.selectedBaby.getSize()));
+        babyHairColor.setText(global.selectedBaby.getHairColor());
+        placeOfBirth.setText(global.selectedBaby.getBirthLocation());
+
+
+        if (global.selectedBaby.getProfilePicture() != null) {
+            ImageView imageView = (ImageView) findViewById(R.id.create_baby_photo);
+            Bitmap d = new BitmapDrawable(getResources(),global.selectedBaby.getProfilePicture()).getBitmap();
+
+            int nh = (int) (d.getHeight() * (256.0 / d.getWidth()));
+            Bitmap scaled = Bitmap.createScaledBitmap(d, 256, nh, true);
+
+            imageView.setImageBitmap(scaled);
+        }
+
+        Button editBaby = (Button) this.findViewById(R.id.addBaby);
+        editBaby.setText("Edit baby");
+
     }
 
     @Override

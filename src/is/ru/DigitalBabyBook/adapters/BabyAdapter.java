@@ -55,6 +55,26 @@ public class BabyAdapter {
         return value;
     }
 
+    public long updateBaby(int babyId, String name, String dateOfBirth, String birthLocation, String gender, double size, double weight, String hairColor, String profilePicture ) {
+        String[] cols = DbHelper.TableBabyCols; //"name 1", "dateOfBirth 2", "birthLocation 3", "gender 4", "size 5", "weight 6", "hairColor 7" , "profilePicture 8"
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(cols[1], name);
+        contentValues.put(cols[2], dateOfBirth);
+        contentValues.put(cols[3], birthLocation);
+        contentValues.put(cols[4], gender);
+        contentValues.put(cols[5], size);
+        contentValues.put(cols[6], weight);
+        contentValues.put(cols[7], hairColor);
+        contentValues.put(cols[8], profilePicture);
+
+        openToWrite();
+        long value = db.update(DbHelper.BabyTable, contentValues,
+                cols[0] + "=" + babyId, null);
+        close();
+        return value;
+    }
+
     public Cursor queryBaby() {
         openToRead();
         Cursor cursor = db.query(DbHelper.BabyTable,

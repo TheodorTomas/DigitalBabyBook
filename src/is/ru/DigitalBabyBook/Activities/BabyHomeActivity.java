@@ -85,11 +85,6 @@ public class BabyHomeActivity extends FragmentActivity {
 
     //.setIndicator(tabView).setContent(R.id.edit_species_tab);
 
-    public void goToEventForm(View view) {
-        startActivity(new Intent(getBaseContext(), AddEventFormActivity.class));
-    }
-
-
     public void deleteBabies(View view) {
         //TODO this should be in settings
         final BabyHomeActivity babyHomeActivity = this;
@@ -119,5 +114,12 @@ public class BabyHomeActivity extends FragmentActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    public void editBaby(View view) {
+        Intent i = new Intent(getBaseContext(), CreateBaby.class);
+        i.putExtra("edit", true);
+        i.putExtra("gender", global.selectedBaby.getGender());
+        startActivity(i);
     }
 }
